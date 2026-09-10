@@ -1,0 +1,31 @@
+{
+    "origin": "PT Meprindo Media Group - CSR Indonesia Awards Ecosystem",
+    "category": "Corporate Spell & Trap Cards",
+    "cards": [
+        {
+            "card_type": "SPELL CARD",
+            "name": "Energy Transition Surge (Sektor Energi & Pertambangan)",
+            "real_value": "Komitmen dekarbonisasi, efisiensi energi, dan transisi ke energi hijau berkelanjutan.",
+            "game_effect": "Memulihkan 'Impact Point' pemain dan menetralkan efek negatif dari Field Terrain bertipe Lava."
+        },
+        {
+            "card_type": "SPELL CARD",
+            "name": "Inklusi Finansial Kerakyatan (Sektor Perbankan / Finansial)",
+            "real_value": "Pemberdayaan UMKM, pendanaan mikro, dan pemerataan ekonomi digital.",
+            "game_effect": "Memungkinkan pemain menarik kartu tambahan (*Draw 2*) dari faksi Cipta Karsa Mandiri untuk memperkuat lini pertahanan ekonomi."
+        },
+        {
+            "card_type": "TRAP CARD",
+            "name": "Eco-Mangrove Shield (Sektor Infrastruktur & Lingkungan)",
+            "real_value": "Konservasi ekosistem pesisir, rehabilitasi lahan kritis, dan mitigasi perubahan iklim.",
+            "game_effect": "Membalikkan serangan atau gangguan lawan dengan memantulkan kembali efek penurunan poin menggunakan ketahanan ekologis."
+        },
+        {
+            "card_type": "TRAP CARD",
+            "name": "Community Resilience Protocol (Sektor Manufaktur & Logistik)",
+            "real_value": "Program keselamatan kerja, tanggap bencana, dan pengembangan vokasi masyarakat sekitar.",
+            "game_effect": "Membatalkan (*Negate*) kartu lawan saat terjadi krisis mendadak di arena, mengunci stabilitas operasional selama 2 giliran."
+        }
+    ],
+    "backend_support": "Maintained under Grounded Leadership & Technical Sync (Om Acep Kus & Om Robby)"
+}

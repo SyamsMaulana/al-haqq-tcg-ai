@@ -1,0 +1,21 @@
+{
+    "project_origin": "PT Meprindo Media Group",
+    "mechanic": "Impact-Driven TCG Logic",
+    "cards": [
+        {
+            "name": "Cipta Karsa Mandiri",
+            "type": "Economic Empowerment",
+            "power_level": 88
+        },
+        {
+            "name": "Karsa Budaya Prima",
+            "type": "Cultural & Environmental",
+            "power_level": 92
+        },
+        {
+            "name": "Inovasi Infrastruktur",
+            "type": "Community Development",
+            "power_level": 90
+        }
+    ]
+}

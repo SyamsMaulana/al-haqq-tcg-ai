@@ -1,0 +1,48 @@
+{
+    "project_origin": "PT Meprindo Media Group",
+    "mechanic": "Field Terrain & TCG Impact Logic",
+    "terrains": [
+        {
+            "terrain": "Umi",
+            "effect": "Flow & Adaptation: Meningkatkan fleksibilitas dan penetrasi jangkauan media digital lintas wilayah."
+        },
+        {
+            "terrain": "Lava",
+            "effect": "High Pressure & Transformation: Mengubah tekanan finansial/tantangan operasional menjadi energi eksekusi yang membara."
+        },
+        {
+            "terrain": "Tornado",
+            "effect": "Rapid Dissemination: Mempercepat distribusi narasi kampanye, press release, dan publikasi program."
+        },
+        {
+            "terrain": "Grounded Leadership",
+            "effect": "Stability & Core Values: Memastikan ketahanan fondasi kepemimpinan, integritas al-haqq, dan dukungan tim di balik layar (Om Acep Kus & Om Robby)."
+        }
+    ],
+    "cards": [
+        {
+            "id": "CSR-001",
+            "name": "Cipta Karsa Mandiri",
+            "type": "Economic Empowerment",
+            "active_terrain": "Umi",
+            "power_level": 88,
+            "role": "Community Support & Vocational Upgrading"
+        },
+        {
+            "id": "CSR-002",
+            "name": "Karsa Budaya Prima",
+            "type": "Cultural & Environmental",
+            "active_terrain": "Tornado",
+            "power_level": 92,
+            "role": "Heritage Preservation & Narrative Distribution"
+        },
+        {
+            "id": "CSR-003",
+            "name": "Inovasi Infrastruktur Komunitas",
+            "type": "Development & Systems",
+            "active_terrain": "Grounded Leadership",
+            "power_level": 90,
+            "role": "Backend Tech & Institutional Stability"
+        }
+    ]
+}

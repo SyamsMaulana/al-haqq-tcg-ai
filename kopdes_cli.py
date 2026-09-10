@@ -5,8 +5,8 @@ from datetime import datetime
 
 class AlHaqqKopdesEngine:
     """
-    Engine Utama: KOPDES SEMBAKO - SEPTEMBER SEHAT
-    Protocol: AL-HAQQ-PROTOCOL-ICAM (Autentik, Transparan, & Terintegrasi)
+    Engine Utama: KOPDES SEMBAKO - SEPTEMBER SEHAT (v4.0)
+    Protocol: AL-HAQQ-PROTOCOL-ICAM (Autentik, Transparan, & Visual Analytics)
     """
     def __init__(self, db_filename="kopdes_database.json"):
         self.db_filename = db_filename
@@ -37,13 +37,13 @@ class AlHaqqKopdesEngine:
     def run(self):
         while True:
             print("\n==================================================")
-            print("   KOPDES SEMBAKO - SEPTEMBER SEHAT (v3.0)")
-            print("   [AL-HAQQ-PROTOCOL-ICAM: ADVANCED ENGINE]")
+            print("   KOPDES SEMBAKO - SEPTEMBER SEHAT (v4.0)")
+            print("   [AL-HAQQ-PROTOCOL-ICAM: ADVANCED ANALYTICS]")
             print("==================================================")
             print("1. Proses Redeem / Hibah (Auto Strava API Sync)")
             print("2. Cek Status e-KTP & Riwayat Historis Lintas Hari")
-            print("3. Audit Mingguan Dana Hibah Guru Honorer")
-            print("4. Ekspor Laporan Rekap CSV (Format Resmi)")
+            print("3. Audit Mingguan & Grafik Analitik Terminal")
+            print("4. Ekspor Laporan Rekap (CSV & JSON Resmi)")
             print("5. Simulasi Broadcast Ringkasan Otomatis")
             print("6. Keluar / Exit")
             
@@ -56,7 +56,7 @@ class AlHaqqKopdesEngine:
             elif choice == "3":
                 self.weekly_audit_flow()
             elif choice == "4":
-                self.export_to_csv()
+                self.export_reports()
             elif choice == "5":
                 self.broadcast_summary_simulation()
             elif choice == "6":
@@ -66,14 +66,12 @@ class AlHaqqKopdesEngine:
                 print("❌ Pilihan tidak valid. Masukkan angka 1 sampai 6.")
 
     def _mock_strava_api_fetch(self):
-        """Simulasi penarikan data langkah otomatis dari Endpoint API Strava."""
         print("\n[MOCKING API] Menghubungkan ke Strava OAuth Endpoint...")
-        # Simulasi data JSON payload yang ditarik dari perangkat/server Strava
         mock_payload = {
             "status": "SUCCESS",
             "athlete_id": "ICAM_STRAVA_SYNC_99",
             "activity_date": datetime.now().strftime("%Y-%m-%d"),
-            "total_steps_recorded": 8450,
+            "total_steps_recorded": 9200,
             "source": "Strava Mobile GPS Protocol"
         }
         print(f"🔌 Payload diterima dari Strava: {mock_payload['total_steps_recorded']:,} langkah")
@@ -104,12 +102,10 @@ class AlHaqqKopdesEngine:
                 "watermark_sig": "ICAM-AL-HAQQ"
             }
             
-        # Pengecekan Ketat: Batas Mutlak 1x Redeem per NIK
         if self.user_db[nik]["claims"] >= self.max_allowed_claim:
             print(f"❌ DITOLAK: NIK atas nama '{self.user_db[nik]['name']}' sudah menggunakan hak 1x kuota transaksinya secara permanen.")
             return
             
-        # Pilihan Metode Input Langkah (Manual vs Auto Strava API)
         print("\nSumber Data Langkah:")
         print("1. Input Manual Mandiri")
         print("2. Tarik Otomatis dari Strava API (Mocking Endpoint)")
@@ -148,12 +144,10 @@ class AlHaqqKopdesEngine:
 
         total_claim = float(min(valid_steps * self.conversion_rate, item_price))
         
-        # Alokasi Pendanaan Transparan (Al-Haqq Standard)
         partner_share = 0.20
         merchant_share = 0.15
         csr_share = 1.0 - (partner_share + merchant_share)
         
-        # Update State & Log Historis Lintas Hari
         self.user_db[nik]["claims"] += 1
         self.user_db[nik]["total_steps"] += valid_steps
         
@@ -212,17 +206,22 @@ class AlHaqqKopdesEngine:
 
     def weekly_audit_flow(self):
         print("\n==================================================")
-        print("    AUDIT MINGGUAN DANA HIBAH GURU HONORER        ")
+        print("    AUDIT MINGGUAN & GRAFIK ANALITIK TERMINAL     ")
         print("==================================================")
         
         total_hibah_dana = 0
         total_transaksi = 0
+        mandiri_count = 0
+        hibah_count = 0
         daftar_hibah = []
 
         for nik, data in self.user_db.items():
+            if "Mandiri" in data.get("status_penerima", ""):
+                mandiri_count += 1
             for log in data.get("history_logs", []):
                 if "Hibah ke Guru Honorer" in log.get("item", ""):
                     total_transaksi += 1
+                    hibah_count += 1
                     total_hibah_dana += self.max_cap
                     daftar_hibah.append({
                         "donatur": data.get("name"),
@@ -230,8 +229,18 @@ class AlHaqqKopdesEngine:
                         "waktu": log["timestamp"]
                     })
 
-        print(f"Total Transaksi Hibah Tercatat : {total_transaksi} transaksi")
-        print(f"Akumulasi Dana Hibah Disalurkan: Rp {total_hibah_dana:,.0f}")
+        print(f"Total Warga Partisipan     : {len(self.user_db)}")
+        print(f"Total Sembako Mandiri      : {mandiri_count} warga")
+        print(f"Total Hibah Guru Honorer   : {hibah_count} transaksi")
+        print(f"Akumulasi Dana Disalurkan  : Rp {total_hibah_dana:,.0f}")
+        
+        print("\n📊 Grafik Proporsi Alokasi (ASCII Analytics):")
+        total_pilihan = max(mandiri_count + hibah_count, 1)
+        bar_mandiri = "█" * int((mandiri_count / total_pilihan) * 20)
+        bar_hibah = "█" * int((hibah_count / total_pilihan) * 20)
+        print(f"  Mandiri  [{bar_mandiri:<20}] {mandiri_count}")
+        print(f"  Hibah    [{bar_hibah:<20}] {hibah_count}")
+        
         print("-" * 50)
         if daftar_hibah:
             print("Rincian Penyaluran Ke Guru Honorer:")
@@ -274,9 +283,13 @@ class AlHaqqKopdesEngine:
         print(pesan_broadcast)
         print("==================================================\n")
 
-    def export_to_csv(self):
-        csv_filename = f"laporan_audit_september_sehat_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+    def export_reports(self):
+        timestamp_str = datetime.now().strftime('%Y%m%d_%H%M%S')
+        csv_filename = f"laporan_audit_{timestamp_str}.csv"
+        json_filename = f"laporan_audit_{timestamp_str}.json"
+        
         try:
+            # Ekspor CSV
             with open(csv_filename, mode="w", newline="", encoding="utf-8") as f:
                 writer = csv.writer(f)
                 writer.writerow(["NIK_Masked", "Nama Warga", "Status/Peran", "Total Klaim", "Akumulasi Langkah", "Aktivitas Terakhir", "Waktu", "Watermark"])
@@ -292,9 +305,20 @@ class AlHaqqKopdesEngine:
                         data.get("last_date", "-"),
                         data.get("watermark_sig", "ICAM-AL-HAQQ")
                     ])
-            print(f"\n✅ Berhasil! Laporan audit terekspor bersih ke: {csv_filename}")
+            
+            # Ekspor JSON Ringkas Resmi
+            summary_payload = {
+                "export_timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "protocol": "AL-HAQQ-PROTOCOL-ICAM",
+                "total_registered_users": len(self.user_db),
+                "database_snapshot": self.user_db
+            }
+            with open(json_filename, "w", encoding="utf-8") as jf:
+                json.dump(summary_payload, jf, indent=4, ensure_ascii=False)
+                
+            print(f"\n✅ Berhasil! Laporan audit terekspor bersih ke:\n - {csv_filename}\n - {json_filename}")
         except Exception as e:
-            print(f"\n❌ Gagal mengekspor CSV: {e}")
+            print(f"\n❌ Gagal mengekspor laporan: {e}")
 
 if __name__ == "__main__":
     engine = AlHaqqKopdesEngine()

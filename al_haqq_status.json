@@ -1,8 +1,18 @@
 {
   "metadata": {
-    "timestamp": "2026-09-10T11:28:55.082986",
-    "watermark_authentic": "ICAM-DIGITAL-WM-584F3973169C",
-    "protocol_status": "Active & Verified"
+    "timestamp": "2026-09-10T05:49:59.629579",
+    "watermark_authentic": "ICAM-DIGITAL-WM-A761093FF68B",
+    "protocol_status": "Active & Verified",
+    "standard_pegging": "Bimetallic (Gold 24K & Pure Silver)"
+  },
+  "bimetallic_reserve_oracle": {
+    "base_unit_gold": "1 ICAM-G = 1.0 Gram 24K Gold",
+    "base_unit_silver": "1 ICAM-S = 1.0 Gram Pure Silver",
+    "gold_reserve_grams": 2941176.47,
+    "silver_reserve_grams": 42500000.0,
+    "total_icam_g_issued": "2,941,176.47 ICAM-G",
+    "total_icam_s_issued": "42,500,000.00 ICAM-S",
+    "oracle_market_cap_usd": "$292,499,999.95"
   },
   "evaluasi_sentimen": {
     "Nintendo": {
@@ -24,6 +34,7 @@
   "kalkulasi_keuangan_csr": {
     "total_profit": "$10,000,000,000.00",
     "alokasi_csr_2_5": "$250,000,000.00",
+    "csr_gold_equivalent": "2,941,176.47 Grams 24K Gold",
     "sisa_profit_bersih": "$9,750,000,000.00",
     "floating_equity_share": {
       "Nintendo": "37.5%",

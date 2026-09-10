@@ -3,7 +3,7 @@ import datetime
 import hashlib
 
 def run_auction_tracker():
-    timestamp = datetime.datetime.utcnow().isoformat()
+    timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
     watermark_raw = f"ICAM-AUCTION-AL-HAQQ-{timestamp}"
     watermark_hash = f"ICAM-DIGITAL-WM-{hashlib.sha256(watermark_raw.encode()).hexdigest()[:12].upper()}"
 

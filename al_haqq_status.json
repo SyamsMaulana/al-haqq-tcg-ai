@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-10T11:28:55.082986",
+    "watermark_authentic": "ICAM-DIGITAL-WM-584F3973169C",
+    "protocol_status": "Active & Verified"
+  },
+  "evaluasi_sentimen": {
+    "Nintendo": {
+      "sentimen_penolakan": "18%",
+      "ambang_batas_20": "LOLOS (Stabil)",
+      "porsi_kritik_konstruktif": "18%"
+    },
+    "Xbox": {
+      "sentimen_penolakan": "14%",
+      "ambang_batas_20": "LOLOS (Stabil)",
+      "porsi_kritik_konstruktif": "14%"
+    },
+    "Sony": {
+      "sentimen_penolakan": "11%",
+      "ambang_batas_20": "LOLOS (Stabil)",
+      "porsi_kritik_konstruktif": "11%"
+    }
+  },
+  "kalkulasi_keuangan_csr": {
+    "total_profit": "$10,000,000,000.00",
+    "alokasi_csr_2_5": "$250,000,000.00",
+    "sisa_profit_bersih": "$9,750,000,000.00",
+    "floating_equity_share": {
+      "Nintendo": "37.5%",
+      "Xbox": "26.56%",
+      "Sony": "35.94%"
+    }
+  }
+}

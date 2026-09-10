@@ -98,3 +98,42 @@ def run_auction_tracker():
 
 if __name__ == "__main__":
     run_auction_tracker()
+
+
+
+import os
+
+def trigger_notification(total_idr, gold_equiv):
+    title = "Lelang Al-Haqq: Bid Baru!"
+    msg = f"Total Terkumpul: Rp {total_idr:,.0f} ({gold_equiv:.4f} ICAM-G)"
+    os.system(f'termux-notification --title "{title}" --content "{msg}" --sound')
+
+
+
+import json
+import urllib.request
+
+
+def send_discord_notify(title, total_idr, gold_equiv):
+    webhook_url = "https://discord.com/api/webhooks/1547497269111033856/MpO-9lUoMxjxGmyHEaQWNwJGkHufJuMIaTcJ9b63qYkfqetX_tptF2SfXAw9QrN7DSQG"
+    msg = f"🚀 **{title}**\nTotal Raised: **Rp {total_idr:,.0f}** ({gold_equiv:.4f} ICAM-G)\n*Watermark: ICAM-DIGITAL-WM-EEB1069BB480*"
+
+    payload = json.dumps({"content": msg}).encode("utf-8")
+    req = urllib.request.Request(
+        webhook_url,
+        data=payload,
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": "Mozilla/5.0",
+        },
+    )
+    try:
+        urllib.request.urlopen(req)
+        print("[SUCCESS] Notifikasi Discord terkirim!")
+    except Exception as e:
+        print(f"[ERROR] Gagal kirim notifikasi Discord: {e}")
+
+
+#Panggil fungsi ini saat data lelang berhasil diperbarui:
+send_discord_notify("Update Status Lelang Al-Haqq", 12240000, 9.0)
+

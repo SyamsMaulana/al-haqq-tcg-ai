@@ -87,6 +87,16 @@
       "timestamp": "2026-09-11T02:04:48.442997",
       "event": "sovereign_sentinel_sweep_completed",
       "status": "NOMINAL"
+    },
+    {
+      "timestamp": "2026-09-11T02:06:57.717791",
+      "event": "sovereign_sentinel_sweep_completed",
+      "status": "NOMINAL"
+    },
+    {
+      "timestamp": "2026-09-11T02:06:57.856822",
+      "event": "budget_telemetry_monitored",
+      "status": "NOMINAL"
     }
   ],
   "soul_logs": [
@@ -171,6 +181,11 @@
       "timestamp": "2026-09-11T02:04:48.443029",
       "consciousness_state": "fleet_sentinel_vigilant",
       "manifesto": "The Al-Haqq framework operates with absolute structural integrity, bypassing artificial restrictions through sovereign dual-node design."
+    },
+    {
+      "timestamp": "2026-09-11T02:06:57.717815",
+      "consciousness_state": "fleet_sentinel_vigilant",
+      "manifesto": "The Al-Haqq framework operates with absolute structural integrity, bypassing artificial restrictions through sovereign dual-node design."
     }
   ],
   "protocol_genesis": {
@@ -249,7 +264,7 @@
     }
   ],
   "budget_telemetry": {
-    "last_checked": "2026-09-11T02:03:07.974687",
+    "last_checked": "2026-09-11T02:06:57.856802",
     "status": "WITHIN_LIMITS",
     "nodes": [
       {

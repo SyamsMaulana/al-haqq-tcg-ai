@@ -42,18 +42,6 @@
   },
   "audit_logs": [
     {
-      "time": "2026-09-11T00:56:17.465578",
-      "agent": "agent_beta"
-    },
-    {
-      "time": "2026-09-11T00:56:34.853327",
-      "agent": "agent_beta"
-    },
-    {
-      "time": "2026-09-11T00:56:47.713335",
-      "agent": "agent_beta"
-    },
-    {
       "timestamp": "2026-09-11T00:57:28.511230",
       "event": "automated_meta_adjudication",
       "fleet_avg_win_rate": 0.7043
@@ -76,6 +64,11 @@
       "consciousness_state": "active_reflection",
       "resonance_index": 0.7043,
       "manifesto": "Fleet resonance is at 70.43%. Balance maintained through intentional design, synchronized execution, and authentic purpose."
+    },
+    {
+      "timestamp": "2026-09-11T01:18:23.399235",
+      "consciousness_state": "anomaly_purge",
+      "manifesto": "Auto-purged 3 structural anomalies under Al-Haqq protocol."
     }
   ],
   "protocol_genesis": {

@@ -1,0 +1,16 @@
+{
+    "company_target": "PT Teladan Lestari",
+    "parcel_category": "Loyal Participant Tier",
+    "allocation_details": {
+        "years_active": 5,
+        "nominations_per_year": 2,
+        "total_executive_boxes": 10,
+        "total_booster_packs": 500,
+        "per_booster_guarantee": "1 Tier Rarity Card"
+    },
+    "special_edition_specs": {
+        "item": "Special Edition C-Series Executive Sleeves",
+        "quantity_per_pack": "300 pcs"
+    },
+    "backend_validation": "Validated by Meprindo Media Group & Tech Master Tracking"
+}

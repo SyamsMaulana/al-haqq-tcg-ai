@@ -1,0 +1,15 @@
+{
+    "company_target": "PT Mitra Nusantara Utama",
+    "parcel_category": "Gold Sponsor Tier",
+    "allocation_details": {
+        "tier": "Gold Sponsor",
+        "executive_boxes": 3,
+        "executive_sleeves_packs": 3,
+        "sleeves_total_pcs": 900
+    },
+    "special_edition_specs": {
+        "item": "Special Edition C-Series Executive Sleeves",
+        "quantity_per_pack": "300 pcs"
+    },
+    "backend_validation": "Validated by Meprindo Media Group & Tech Master Tracking"
+}

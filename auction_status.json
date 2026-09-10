@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-10T06:10:18.877221",
+    "watermark_authentic": "ICAM-DIGITAL-WM-BF80CCB6AAD5",
+    "creator": "Syams Maulana (ICAM)",
+    "protocol": "Al-Haqq Bimetallic Auction Standard"
+  },
+  "summary": {
+    "total_items_listed": 4,
+    "total_funds_raised_usd": "$765.00",
+    "total_equivalent_gold": "9.0000 Grams 24K Gold (ICAM-G)",
+    "community_fund_allocation": "100% Peralatan Vokasi Kuliner & Ekspedisi Social"
+  },
+  "items": [
+    {
+      "id": "AUC-001",
+      "item_name": "Herm\u00e8s Koala Print Silk Tie",
+      "highest_bid_usd": 238.0,
+      "bidder": "Collector_01",
+      "target_allocation": "Commercial Pastry Mixer 10L Komunitas",
+      "status": "Active Bidding",
+      "icam_gold_value": "2.8000 ICAM-G",
+      "icam_silver_value": "238.00 ICAM-S"
+    },
+    {
+      "id": "AUC-002",
+      "item_name": "Max Raab American Flags Vintage Tie",
+      "highest_bid_usd": 127.5,
+      "bidder": "Collector_07",
+      "target_allocation": "Artisan Deck Oven & Pizza Stone Setup",
+      "status": "Active Bidding",
+      "icam_gold_value": "1.5000 ICAM-G",
+      "icam_silver_value": "127.50 ICAM-S"
+    },
+    {
+      "id": "AUC-003",
+      "item_name": "Goldlion 1500 Special Edition Tie",
+      "highest_bid_usd": 102.0,
+      "bidder": "Collector_03",
+      "target_allocation": "Set Pisau Chef & Talenan Vokasi",
+      "status": "Active Bidding",
+      "icam_gold_value": "1.2000 ICAM-G",
+      "icam_silver_value": "102.00 ICAM-S"
+    },
+    {
+      "id": "AUC-004",
+      "item_name": "Koleksi Memorabilia & Aksesori Vintage",
+      "highest_bid_usd": 297.5,
+      "bidder": "Collector_09",
+      "target_allocation": "Bahan Baku & Equipment Vokasi Kuliner",
+      "status": "In Preparation",
+      "icam_gold_value": "3.5000 ICAM-G",
+      "icam_silver_value": "297.50 ICAM-S"
+    }
+  ]
+}

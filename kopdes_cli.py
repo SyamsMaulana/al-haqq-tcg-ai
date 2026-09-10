@@ -6,7 +6,7 @@ from datetime import datetime
 class AlHaqqKopdesEngine:
     """
     Engine Utama: KOPDES SEMBAKO - SEPTEMBER SEHAT
-    Protocol: AL-HAQQ-PROTOCOL-ICAM (Autentik & Transparan)
+    Protocol: AL-HAQQ-PROTOCOL-ICAM (Autentik, Transparan, & Terintegrasi)
     """
     def __init__(self, db_filename="kopdes_database.json"):
         self.db_filename = db_filename
@@ -23,7 +23,7 @@ class AlHaqqKopdesEngine:
                 with open(self.db_filename, "r", encoding="utf-8") as f:
                     return json.load(f)
             except (json.JSONDecodeError, IOError):
-                print("⚠️ Peringatan: Database rusak/kosong. Memuat ulang state kosong...")
+                print("⚠️ Peringatan: Database lokal korup. Menginisialisasi state bersih...")
                 return {}
         return {}
 
@@ -37,11 +37,11 @@ class AlHaqqKopdesEngine:
     def run(self):
         while True:
             print("\n==================================================")
-            print("   KOPDES SEMBAKO - SEPTEMBER SEHAT (CURATED)")
-            print("   [AL-HAQQ-PROTOCOL-ICAM ENGINE v2.0]")
+            print("   KOPDES SEMBAKO - SEPTEMBER SEHAT (v3.0)")
+            print("   [AL-HAQQ-PROTOCOL-ICAM: ADVANCED ENGINE]")
             print("==================================================")
-            print("1. Proses Redeem / Hibah ke Guru Honorer")
-            print("2. Cek Status e-KTP & Akumulasi Langkah")
+            print("1. Proses Redeem / Hibah (Auto Strava API Sync)")
+            print("2. Cek Status e-KTP & Riwayat Historis Lintas Hari")
             print("3. Audit Mingguan Dana Hibah Guru Honorer")
             print("4. Ekspor Laporan Rekap CSV (Format Resmi)")
             print("5. Simulasi Broadcast Ringkasan Otomatis")
@@ -65,8 +65,22 @@ class AlHaqqKopdesEngine:
             else:
                 print("❌ Pilihan tidak valid. Masukkan angka 1 sampai 6.")
 
+    def _mock_strava_api_fetch(self):
+        """Simulasi penarikan data langkah otomatis dari Endpoint API Strava."""
+        print("\n[MOCKING API] Menghubungkan ke Strava OAuth Endpoint...")
+        # Simulasi data JSON payload yang ditarik dari perangkat/server Strava
+        mock_payload = {
+            "status": "SUCCESS",
+            "athlete_id": "ICAM_STRAVA_SYNC_99",
+            "activity_date": datetime.now().strftime("%Y-%m-%d"),
+            "total_steps_recorded": 8450,
+            "source": "Strava Mobile GPS Protocol"
+        }
+        print(f"🔌 Payload diterima dari Strava: {mock_payload['total_steps_recorded']:,} langkah")
+        return mock_payload['total_steps_recorded']
+
     def process_redeem_flow(self):
-        print("\n--- FORMULIR REDEEM & HIBAH GURU HONORER ---")
+        print("\n--- FORMULIR REDEEM & HIBAH (STRAVA API SYNC) ---")
         nik = input("Masukkan 16 digit NIK e-KTP pemberi/warga: ").strip()
         
         if len(nik) != 16 or not nik.isdigit():
@@ -78,26 +92,37 @@ class AlHaqqKopdesEngine:
             print("❌ Error: Nama tidak boleh kosong!")
             return
             
+        today_date = datetime.now().strftime("%Y-%m-%d")
+        
         if nik not in self.user_db:
             self.user_db[nik] = {
                 "name": name, 
                 "claims": 0, 
                 "total_steps": 0, 
-                "last_item": "-", 
-                "last_date": "-",
+                "history_logs": [],
                 "status_penerima": "Mandiri (Warga)",
                 "watermark_sig": "ICAM-AL-HAQQ"
             }
             
+        # Pengecekan Ketat: Batas Mutlak 1x Redeem per NIK
         if self.user_db[nik]["claims"] >= self.max_allowed_claim:
-            print(f"❌ DITOLAK: NIK atas nama '{self.user_db[nik]['name']}' sudah menggunakan hak kuota 1x transaksinya.")
+            print(f"❌ DITOLAK: NIK atas nama '{self.user_db[nik]['name']}' sudah menggunakan hak 1x kuota transaksinya secara permanen.")
             return
             
-        try:
-            steps = int(input("Masukkan jumlah langkah Strava hari ini: ").strip())
-        except ValueError:
-            print("❌ Error: Jumlah langkah harus berupa angka bulat!")
-            return
+        # Pilihan Metode Input Langkah (Manual vs Auto Strava API)
+        print("\nSumber Data Langkah:")
+        print("1. Input Manual Mandiri")
+        print("2. Tarik Otomatis dari Strava API (Mocking Endpoint)")
+        metode_langkah = input("Pilih metode (1/2): ").strip()
+        
+        if metode_langkah == "2":
+            steps = self._mock_strava_api_fetch()
+        else:
+            try:
+                steps = int(input("Masukkan jumlah langkah Strava hari ini: ").strip())
+            except ValueError:
+                print("❌ Error: Jumlah langkah harus berupa angka bulat!")
+                return
             
         print("\nPilih Jenis Alokasi Subsidi:")
         print("1. Ambil Sembako Pribadi (Beras Kopdes Rp30.000)")
@@ -128,8 +153,18 @@ class AlHaqqKopdesEngine:
         merchant_share = 0.15
         csr_share = 1.0 - (partner_share + merchant_share)
         
+        # Update State & Log Historis Lintas Hari
         self.user_db[nik]["claims"] += 1
         self.user_db[nik]["total_steps"] += valid_steps
+        
+        log_entry = {
+            "date": today_date,
+            "timestamp": timestamp_now,
+            "item": item_choice,
+            "steps": valid_steps,
+            "nominal": total_claim
+        }
+        self.user_db[nik]["history_logs"].append(log_entry)
         self.user_db[nik]["last_item"] = item_choice
         self.user_db[nik]["last_date"] = timestamp_now
         self._save_database()
@@ -157,7 +192,7 @@ class AlHaqqKopdesEngine:
         print("==================================================\n")
 
     def check_status_flow(self):
-        print("\n--- CEK STATUS NIK e-KTP ---")
+        print("\n--- CEK STATUS NIK & RIWAYAT HISTORIS LINTAS HARI ---")
         nik = input("Masukkan 16 digit NIK e-KTP: ").strip()
         if nik in self.user_db:
             data = self.user_db[nik]
@@ -165,8 +200,13 @@ class AlHaqqKopdesEngine:
             print(f"Status Kuota      : {'Sudah Terpakai (1/1)' if data['claims'] > 0 else 'Tersedia'}")
             print(f"Peran / Alokasi   : {data.get('status_penerima', '-')}")
             print(f"Akumulasi Langkah : {data['total_steps']:,} langkah")
-            print(f"Aktivitas Terakhir: {data.get('last_item', '-')}")
-            print(f"Waktu Transaksi   : {data.get('last_date', '-')}")
+            print(f"Total Transaksi   : {len(data.get('history_logs', []))} sesi tercatat")
+            
+            logs = data.get("history_logs", [])
+            if logs:
+                print("\n📅 Riwayat Log Aktivitas Lintas Waktu:")
+                for idx, log in enumerate(logs, 1):
+                    print(f"  {idx}. Tanggal: {log['date']} | Item: {log['item']} | Langkah: {log['steps']:,}")
         else:
             print("ℹ️ NIK belum terdaftar di dalam database lokal.")
 
@@ -180,15 +220,15 @@ class AlHaqqKopdesEngine:
         daftar_hibah = []
 
         for nik, data in self.user_db.items():
-            item = data.get("last_item", "")
-            if "Hibah ke Guru Honorer" in item:
-                total_transaksi += 1
-                total_hibah_dana += self.max_cap
-                daftar_hibah.append({
-                    "donatur": data.get("name"),
-                    "keterangan": item,
-                    "waktu": data.get("last_date")
-                })
+            for log in data.get("history_logs", []):
+                if "Hibah ke Guru Honorer" in log.get("item", ""):
+                    total_transaksi += 1
+                    total_hibah_dana += self.max_cap
+                    daftar_hibah.append({
+                        "donatur": data.get("name"),
+                        "keterangan": log["item"],
+                        "waktu": log["timestamp"]
+                    })
 
         print(f"Total Transaksi Hibah Tercatat : {total_transaksi} transaksi")
         print(f"Akumulasi Dana Hibah Disalurkan: Rp {total_hibah_dana:,.0f}")
@@ -208,7 +248,13 @@ class AlHaqqKopdesEngine:
         
         total_warga = len(self.user_db)
         total_langkah = sum(d.get("total_steps", 0) for d in self.user_db.values())
-        total_hibah_count = sum(1 for d in self.user_db.values() if "Hibah ke Guru Honorer" in d.get("last_item", ""))
+        
+        total_hibah_count = 0
+        for d in self.user_db.values():
+            for log in d.get("history_logs", []):
+                if "Hibah ke Guru Honorer" in log.get("item", ""):
+                    total_hibah_count += 1
+                    
         total_dana_hibah = total_hibah_count * self.max_cap
 
         pesan_broadcast = f"""📢 *LAPORAN RESMI PILOT SEPTEMBER SEHAT* 📢
@@ -233,7 +279,7 @@ class AlHaqqKopdesEngine:
         try:
             with open(csv_filename, mode="w", newline="", encoding="utf-8") as f:
                 writer = csv.writer(f)
-                writer.writerow(["NIK_Mashed", "Nama Warga", "Status/Peran", "Total Klaim", "Akumulasi Langkah", "Aktivitas Terakhir", "Waktu", "Watermark"])
+                writer.writerow(["NIK_Masked", "Nama Warga", "Status/Peran", "Total Klaim", "Akumulasi Langkah", "Aktivitas Terakhir", "Waktu", "Watermark"])
                 for nik, data in self.user_db.items():
                     masked_nik = f"{nik[:6]}******{nik[12:]}" if len(nik) == 16 else nik
                     writer.writerow([
@@ -242,8 +288,8 @@ class AlHaqqKopdesEngine:
                         data.get("status_penerima"),
                         data.get("claims"),
                         data.get("total_steps"),
-                        data.get("last_item"),
-                        data.get("last_date"),
+                        data.get("last_item", "-"),
+                        data.get("last_date", "-"),
                         data.get("watermark_sig", "ICAM-AL-HAQQ")
                     ])
             print(f"\n✅ Berhasil! Laporan audit terekspor bersih ke: {csv_filename}")

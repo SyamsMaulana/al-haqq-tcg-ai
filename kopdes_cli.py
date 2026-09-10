@@ -1,24 +1,29 @@
 import json
 import os
-csv = __import__('csv')
+import csv
 from datetime import datetime
 
-class KopdesCLIApp:
+class AlHaqqKopdesEngine:
+    """
+    Engine Utama: KOPDES SEMBAKO - SEPTEMBER SEHAT
+    Protocol: AL-HAQQ-PROTOCOL-ICAM (Autentik & Transparan)
+    """
     def __init__(self, db_filename="kopdes_database.json"):
         self.db_filename = db_filename
-        self.user_db = self._load_database()
         self.conversion_rate = 1.0
         self.max_steps = 10000
         self.kopdes_rice_price = 30000
         self.max_cap = 35000
         self.max_allowed_claim = 1
+        self.user_db = self._load_database()
 
     def _load_database(self):
         if os.path.exists(self.db_filename):
             try:
                 with open(self.db_filename, "r", encoding="utf-8") as f:
                     return json.load(f)
-            except Exception:
+            except (json.JSONDecodeError, IOError):
+                print("⚠️ Peringatan: Database rusak/kosong. Memuat ulang state kosong...")
                 return {}
         return {}
 
@@ -26,19 +31,19 @@ class KopdesCLIApp:
         try:
             with open(self.db_filename, "w", encoding="utf-8") as f:
                 json.dump(self.user_db, f, indent=4, ensure_ascii=False)
-        except Exception as e:
-            print(f"❌ Error saat menyimpan database: {e}")
+        except IOError as e:
+            print(f"❌ Error kritis saat menyimpan database: {e}")
 
     def run(self):
         while True:
-            print("\n========================================")
-            print("   KOPDES SEMBAKO - SEPTEMBER SEHAT")
-            print("   (AL-HAQQ-PROTOCOL - SYSTEM ENGINE)")
-            print("========================================")
+            print("\n==================================================")
+            print("   KOPDES SEMBAKO - SEPTEMBER SEHAT (CURATED)")
+            print("   [AL-HAQQ-PROTOCOL-ICAM ENGINE v2.0]")
+            print("==================================================")
             print("1. Proses Redeem / Hibah ke Guru Honorer")
             print("2. Cek Status e-KTP & Akumulasi Langkah")
             print("3. Audit Mingguan Dana Hibah Guru Honorer")
-            print("4. Ekspor Laporan Rekap CSV")
+            print("4. Ekspor Laporan Rekap CSV (Format Resmi)")
             print("5. Simulasi Broadcast Ringkasan Otomatis")
             print("6. Keluar / Exit")
             
@@ -55,10 +60,10 @@ class KopdesCLIApp:
             elif choice == "5":
                 self.broadcast_summary_simulation()
             elif choice == "6":
-                print("\nTerima kasih! Program selesai. - AL-HAQQ-PROTOCOL-ICAM")
+                print("\nAlhamdulillah. Sesi selesai. - AL-HAQQ-PROTOCOL-ICAM")
                 break
             else:
-                print("❌ Pilihan tidak valid. Silakan coba lagi.")
+                print("❌ Pilihan tidak valid. Masukkan angka 1 sampai 6.")
 
     def process_redeem_flow(self):
         print("\n--- FORMULIR REDEEM & HIBAH GURU HONORER ---")
@@ -80,22 +85,23 @@ class KopdesCLIApp:
                 "total_steps": 0, 
                 "last_item": "-", 
                 "last_date": "-",
-                "status_penerima": "Mandiri (Warga)"
+                "status_penerima": "Mandiri (Warga)",
+                "watermark_sig": "ICAM-AL-HAQQ"
             }
             
         if self.user_db[nik]["claims"] >= self.max_allowed_claim:
-            print(f"❌ DITOLAK: NIK atas nama '{self.user_db[nik]['name']}' sudah menggunakan hak 1x transaksinya.")
+            print(f"❌ DITOLAK: NIK atas nama '{self.user_db[nik]['name']}' sudah menggunakan hak kuota 1x transaksinya.")
             return
             
         try:
             steps = int(input("Masukkan jumlah langkah Strava hari ini: ").strip())
         except ValueError:
-            print("❌ Error: Jumlah langkah harus berupa angka!")
+            print("❌ Error: Jumlah langkah harus berupa angka bulat!")
             return
             
         print("\nPilih Jenis Alokasi Subsidi:")
         print("1. Ambil Sembako Pribadi (Beras Kopdes Rp30.000)")
-        print("2. Hibahkan / Sedekahkan ke Guru Honorer Terdaftar (Max Rp35.000)")
+        print("2. Hibahkan ke Guru Honorer Terdaftar (Max Rp35.000)")
         pilihan_alur = input("Pilih nomor tujuan (1/2): ").strip()
         
         timestamp_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -109,7 +115,7 @@ class KopdesCLIApp:
             
             item_choice = f"Hibah ke Guru Honorer: {nama_guru} ({asal_sekolah})"
             item_price = self.max_cap
-            self.user_db[nik]["status_penerima"] = f"Donatur Hibah untuk Guru: {nama_guru}"
+            self.user_db[nik]["status_penerima"] = f"Donatur Hibah untuk: {nama_guru}"
         else:
             item_choice = "Beras Kopdes 3Kg"
             item_price = self.kopdes_rice_price
@@ -117,14 +123,11 @@ class KopdesCLIApp:
 
         total_claim = float(min(valid_steps * self.conversion_rate, item_price))
         
+        # Alokasi Pendanaan Transparan (Al-Haqq Standard)
         partner_share = 0.20
         merchant_share = 0.15
         csr_share = 1.0 - (partner_share + merchant_share)
         
-        amt_partner = round(total_claim * partner_share, 2)
-        amt_csr = round(total_claim * csr_share, 2)
-        amt_merchant = round(total_claim * merchant_share, 2)
-
         self.user_db[nik]["claims"] += 1
         self.user_db[nik]["total_steps"] += valid_steps
         self.user_db[nik]["last_item"] = item_choice
@@ -139,39 +142,38 @@ class KopdesCLIApp:
             "steps_contributed": valid_steps,
             "nominal_subsidi_idr": total_claim,
             "alokasi_pendanaan": {
-                "partner_share": amt_partner,
-                "csr_pool": amt_csr,
-                "merchant_kopdes": amt_merchant
+                "partner_share": round(total_claim * partner_share, 2),
+                "csr_pool": round(total_claim * csr_share, 2),
+                "merchant_kopdes": round(total_claim * merchant_share, 2)
             },
             "status_code": "SUCCESS_VERIFIED_HAQQ",
             "watermark": "AL-HAQQ-PROTOCOL-ICAM"
         }
         
-        print("\n========================================")
-        print("    STRUK RESI DIGITAL TERVERIFIKASI    ")
-        print("========================================")
+        print("\n==================================================")
+        print("    STRUK RESI DIGITAL TERVERIFIKASI (HAQQ)       ")
+        print("==================================================")
         print(json.dumps(receipt, indent=4))
-        print("========================================\n")
+        print("==================================================\n")
 
     def check_status_flow(self):
         print("\n--- CEK STATUS NIK e-KTP ---")
         nik = input("Masukkan 16 digit NIK e-KTP: ").strip()
         if nik in self.user_db:
             data = self.user_db[nik]
-            used = data["claims"]
-            total_steps = data["total_steps"]
             print(f"\nNama Warga        : {data['name']}")
-            print(f"Status Penggunaan : {'Sudah Digunakan' if used >= 0 else 'Belum'}")
+            print(f"Status Kuota      : {'Sudah Terpakai (1/1)' if data['claims'] > 0 else 'Tersedia'}")
             print(f"Peran / Alokasi   : {data.get('status_penerima', '-')}")
-            print(f"Akumulasi Langkah : {total_steps:,} langkah")
+            print(f"Akumulasi Langkah : {data['total_steps']:,} langkah")
             print(f"Aktivitas Terakhir: {data.get('last_item', '-')}")
+            print(f"Waktu Transaksi   : {data.get('last_date', '-')}")
         else:
-            print("ℹ️ NIK belum terdaftar dalam sistem.")
+            print("ℹ️ NIK belum terdaftar di dalam database lokal.")
 
     def weekly_audit_flow(self):
-        print("\n========================================")
-        print("    AUDIT MINGGUAN DANA HIBAH GURU      ")
-        print("========================================")
+        print("\n==================================================")
+        print("    AUDIT MINGGUAN DANA HIBAH GURU HONORER        ")
+        print("==================================================")
         
         total_hibah_dana = 0
         total_transaksi = 0
@@ -190,19 +192,19 @@ class KopdesCLIApp:
 
         print(f"Total Transaksi Hibah Tercatat : {total_transaksi} transaksi")
         print(f"Akumulasi Dana Hibah Disalurkan: Rp {total_hibah_dana:,.0f}")
-        print("-" * 40)
+        print("-" * 50)
         if daftar_hibah:
             print("Rincian Penyaluran Ke Guru Honorer:")
             for idx, h in enumerate(daftar_hibah, 1):
-                print(f"{idx}. Dari: {h['donatur']} | {h['keterangan']} | [{h['waktu']}]")
+                print(f"{idx}. Donatur: {h['donatur']} | {h['keterangan']} | [{h['waktu']}]")
         else:
             print("ℹ️ Belum ada data hibah guru honorer yang tercatat pada siklus ini.")
-        print("========================================\n")
+        print("==================================================\n")
 
     def broadcast_summary_simulation(self):
-        print("\n========================================")
-        print("   SIMULASI BROADCAST LAPORAN MINGGUAN  ")
-        print("========================================")
+        print("\n==================================================")
+        print("   SIMULASI BROADCAST LAPORAN MINGGUAN            ")
+        print("==================================================")
         
         total_warga = len(self.user_db)
         total_langkah = sum(d.get("total_steps", 0) for d in self.user_db.values())
@@ -221,31 +223,33 @@ class KopdesCLIApp:
 
 ✨ _"Alhamdulillah life is good. Transparansi mutlak untuk kesejahteraan bersama dan pahlawan tanpa tanda jasa."_
 ---
-*Pesan ini siap disalin untuk laporan grup WhatsApp / Aliansi.*
+*Pesan ini tersertifikasi otentik kolaborasi pemikiran ICAM.*
 """
         print(pesan_broadcast)
-        print("========================================\n")
+        print("==================================================\n")
 
     def export_to_csv(self):
-        csv_filename = f"laporan_audit_guru_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+        csv_filename = f"laporan_audit_september_sehat_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
         try:
             with open(csv_filename, mode="w", newline="", encoding="utf-8") as f:
                 writer = csv.writer(f)
-                writer.writerow(["NIK", "Nama Warga", "Status/Peran", "Total Klaim", "Akumulasi Langkah", "Aktivitas Terakhir", "Waktu"])
+                writer.writerow(["NIK_Mashed", "Nama Warga", "Status/Peran", "Total Klaim", "Akumulasi Langkah", "Aktivitas Terakhir", "Waktu", "Watermark"])
                 for nik, data in self.user_db.items():
+                    masked_nik = f"{nik[:6]}******{nik[12:]}" if len(nik) == 16 else nik
                     writer.writerow([
-                        nik,
+                        masked_nik,
                         data.get("name"),
                         data.get("status_penerima"),
                         data.get("claims"),
                         data.get("total_steps"),
                         data.get("last_item"),
-                        data.get("last_date")
+                        data.get("last_date"),
+                        data.get("watermark_sig", "ICAM-AL-HAQQ")
                     ])
-            print(f"\n✅ Berhasil! Laporan audit terekspor ke: {csv_filename}")
+            print(f"\n✅ Berhasil! Laporan audit terekspor bersih ke: {csv_filename}")
         except Exception as e:
             print(f"\n❌ Gagal mengekspor CSV: {e}")
 
 if __name__ == "__main__":
-    app = KopdesCLIApp()
-    app.run()
+    engine = AlHaqqKopdesEngine()
+    engine.run()

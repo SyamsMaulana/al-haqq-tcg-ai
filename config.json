@@ -72,6 +72,11 @@
       "event": "instant_secure_claim_executed",
       "total_claims": 2,
       "status": "SUCCESS"
+    },
+    {
+      "timestamp": "2026-09-11T02:00:46.995138",
+      "event": "node_alpha_test_purchase_logged",
+      "status": "SUCCESS"
     }
   ],
   "soul_logs": [
@@ -215,6 +220,17 @@
       "optimized_net_cost_eur": 50.24,
       "execution_status": "SECURE_CLAIMED",
       "timestamp": "2026-09-11T01:51:24.023639"
+    }
+  ],
+  "purchases": [
+    {
+      "timestamp": "2026-09-11T02:00:46.995102",
+      "node": "node_alpha",
+      "item": "In-App Test Pack",
+      "amount": 4.99,
+      "currency": "EUR",
+      "gateway": "Google Play Germany",
+      "status": "VERIFIED_SUCCESS"
     }
   ]
 }

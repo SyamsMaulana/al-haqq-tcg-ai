@@ -1,0 +1,18 @@
+{
+    "@context": "https://schema.org",
+    "@type": "DigitalDocument",
+    "name": "nasi_goreng_garasi_campaign",
+    "genre": "Culinary-Cultural Storytelling",
+    "creator": {
+        "@type": "Person",
+        "name": "Syams Maulana (ICAM)",
+        "alternateName": "GOD•MauL"
+    },
+    "collaborator": {
+        "@type": "Organization",
+        "name": "Collaborative AI Intelligence Engine"
+    },
+    "copyrightNotice": "Authentic Al-Haqq-Protocol Digital Provenance & Collaborative Core",
+    "category": "Culinary Production & Pre-Order",
+    "license": "https://github.com/SyamsMaulana/Al-Haqq-Protocol"
+}

@@ -1,0 +1,4 @@
+2026-09-10 19:23:07,222 - INFO - [narrative_pipeline.py:45] - Initializing Narrative & Provenance Pipeline...
+2026-09-10 19:23:07,223 - INFO - [narrative_pipeline.py:59] - Successfully generated provenance sidecar: nasi_goreng_garasi_campaign_provenance.json
+2026-09-10 19:23:07,225 - INFO - [narrative_pipeline.py:59] - Successfully generated provenance sidecar: csr_indonesia_awards_entry_provenance.json
+2026-09-10 19:23:07,225 - INFO - [narrative_pipeline.py:63] - Pipeline finished. Generated sidecars: 2, Errors: 0

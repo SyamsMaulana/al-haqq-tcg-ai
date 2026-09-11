@@ -1,59 +1,92 @@
 import streamlit as st
+import requests
 import json
-import pandas as pd
+import os
 
-st.set_page_config(page_title="Al-Haqq Fleet Telemetry", layout="wide")
-st.title("🛡️ Al-Haqq TCG-AI Fleet Telemetry Dashboard")
+st.set_page_config(page_title="GOD•MauL Hub Dashboard", page_icon="⚡", layout="wide")
 
-try:
-    with open("config.json", "r") as f:
-        config = json.load(f)
-except FileNotFoundError:
-    st.error("config.json not found.")
-    st.stop()
+st.title("⚡ GOD•MauL Hub & TCG Command Center")
+st.markdown("Kedaulatan Narasi Digital & Manajemen Turnamen Terpadu")
 
-st.sidebar.header("System Overview")
-st.sidebar.text(f"Project: {config.get('project_name')}")
-st.sidebar.text(f"Version: {config.get('version')}")
+API_BASE = "http://127.0.0.1:5001/api"
 
-agents = config.get("agents", [])
-total_matches = sum(a["performance_metrics"]["matches_analyzed"] for a in agents) if agents else 0
-fleet_avg_win = sum(a["performance_metrics"]["win_rate"] for a in agents) / len(agents) if agents else 0.0
+def load_json(file_path, default):
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as f:
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                return default
+    return default
 
-col1, col2, col3 = st.columns(3)
-col1.metric("Registered Agents", len(agents))
-col2.metric("Total Matches Analyzed", total_matches)
-col3.metric("Fleet Average Win Rate", f"{fleet_avg_win:.2%}")
+tab1, tab2 = st.tabs(["🏆 TCG Tournament", "📚 Content Archive & Publisher"])
 
-st.markdown("---")
-st.subheader("🤖 Agent Performance Matrix")
-if agents:
-    agent_data = [{
-        "ID": a["id"],
-        "Archetype": a.get("archetype", "N/A"),
-        "Matches Analyzed": a["performance_metrics"]["matches_analyzed"],
-        "Win Rate": f"{a['performance_metrics']['win_rate']:.2%}"
-    } for a in agents]
-    st.dataframe(pd.DataFrame(agent_data), use_container_width=True)
-else:
-    st.info("No agents found.")
+with tab1:
+    st.header("Manajemen Turnamen TCG")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Daftar Peserta Baru")
+        with st.form("add_player_form"):
+            new_player = st.text_input("Nama Peserta / Duelist")
+            submitted_player = st.form_submit_button("Daftarkan")
+            if submitted_player and new_player:
+                res = requests.post(f"{API_BASE}/tourney/add", json={"name": new_player})
+                if res.status_code == 200:
+                    st.success(res.json().get("message"))
+                    st.rerun()
+                else:
+                    st.error(res.json().get("message"))
+    
+    with col2:
+        st.subheader("Generate Pairing")
+        if st.button("Buat Pairing Babak"):
+            res = requests.get(f"{API_BASE}/tourney/pair")
+            if res.status_code == 200:
+                pair_data = res.json()
+                st.success("Pairing berhasil dibuat!")
+                for p in pair_data.get("pairings", []):
+                    st.write(f"Meja {p['table']}: **{p['p1']}** VS **{p['p2']}**")
+            else:
+                st.error("Gagal membuat pairing.")
 
-st.markdown("---")
-st.subheader("📜 Audit Trail")
-audit_logs = config.get("audit_logs", [])
-if audit_logs:
-    st.dataframe(pd.DataFrame(audit_logs), use_container_width=True)
-else:
-    st.info("No audit logs recorded.")
+    st.markdown("---")
+    t_data = load_json("tournament_data.json", {"name": "GOD•MauL TCG Championship", "players": []})
+    st.subheader(f"Klasemen: {t_data.get('name', 'Championship')}")
+    
+    players = t_data.get("players", [])
+    if players:
+        sorted_players = sorted(players, key=lambda x: x["points"], reverse=True)
+        for idx, p in enumerate(sorted_players, 1):
+            st.write(f"**{idx}. {p['name']}** — {p['points']} Poin")
+    else:
+        st.info("Belum ada peserta terdaftar.")
 
-st.markdown("---")
-st.subheader("✨ Soul Logs & Sovereign Manifestos")
-soul_logs = config.get("soul_logs", [])
-if soul_logs:
-    for log in reversed(soul_logs):
-        ts = log.get("timestamp", "")
-        state = log.get("consciousness_state", "")
-        manifesto = log.get("manifesto", "")
-        st.info(f"**[{ts}]** - *{state}*\n\n{manifesto}")
-else:
-    st.info("No soul logs recorded.")
+with tab2:
+    st.header("Publikasi & Arsip Konten")
+    
+    with st.expander("📝 Tulis & Publikasikan Konten Baru"):
+        with st.form("publish_form"):
+            pub_title = st.text_input("Judul Narasi")
+            pub_desc = st.text_input("Deskripsi Singkat")
+            pub_content = st.text_area("Isi Konten / Artikel")
+            submitted_pub = st.form_submit_button("Publikasikan ke Hub")
+            if submitted_pub and pub_title:
+                payload = {"title": pub_title, "description": pub_desc, "content": pub_content}
+                res = requests.post(f"{API_BASE}/publish", json=payload)
+                if res.status_code == 200:
+                    st.success("Konten berhasil diarsipkan dan diberi cap digital!")
+                    st.rerun()
+                else:
+                    st.error("Gagal mempublikasikan konten.")
+
+    st.markdown("---")
+    archive = load_json("hub_archive.json", [])
+    if archive:
+        for item in reversed(archive):
+            with st.expander(f"{item.get('title')} ({item.get('timestamp')})"):
+                st.write(f"**Deskripsi:** {item.get('description')}")
+                st.markdown("---")
+                st.text(item.get('processed_content'))
+    else:
+        st.info("Belum ada arsip konten tersimpan.")

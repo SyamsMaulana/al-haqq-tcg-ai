@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Al-Haqq TCG Online</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body { background: #0b0f17; color: #f3f4f6; font-family: sans-serif; margin: 0; padding: 1rem; display: flex; flex-direction: column; align-items: center; }
+        .board { width: 100%; max-width: 800px; background: #131b2e; border: 1px solid #1e293b; border-radius: 12px; padding: 1rem; min-height: 400px; display: flex; flex-direction: column; justify-content: space-between; }
+        .zone { border: 2px dashed #2d3748; border-radius: 8px; padding: 1rem; min-height: 100px; display: flex; gap: 10px; align-items: center; justify-content: center; }
+        .card { background: #d97706; color: white; padding: 15px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Syams Maulana - Culinary & Cultural Storytelling",
+      "url": "https://syams-alhaqq.blogspot.com",
+      "author": {
+        "@type": "Person",
+        "name": "Syams Maulana",
+        "alternateName": "ICAM"
+      }
+    }
+    </script>
+    
+</head>
+<body>
+    <h2>Al-Haqq TCG Arena</h2>
+    <div class="board">
+        <div class="zone">Area Lawan</div>
+        <div class="zone" onclick="playCard()">[ Klik untuk Mainkan Kartu ke Field ]</div>
+        <div class="zone">
+            <div class="card">Kartu Al-Haqq #1</div>
+            <div class="card">Kartu Strategi #2</div>
+        </div>
+    </div>
+    <script>
+        const socket = io();
+        const roomID = "arena-01";
+        socket.emit('join_game', { room: roomID });
+        function playCard() {
+            socket.emit('player_action', { room: roomID, action: 'summon', card: 'Kartu Al-Haqq #1' });
+            alert("Aksi dikirim ke server & disinkronkan!");
+        }
+        socket.on('game_update', (data) => {
+            alert("Lawan melakukan aksi: " + data.action);
+        });
+    </script>
+</body>
+    <!-- Watermark: ICAM / Syams Maulana — Kolaborasi Pemikiran & Penyempurnaan Bersama (Al-Haqq Protocol) -->
+
+</html>

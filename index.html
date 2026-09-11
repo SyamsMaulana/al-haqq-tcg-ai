@@ -1,16 +1,4 @@
-import http.server
-import socketserver
-import os
-
-PORT = 8080
-DIRECTORY = "."
-
-class Handler(http.server.SimpleHTTPRequestHandler):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory=DIRECTORY, **kwargs)
-
-# Membuat file index.html otomatis jika belum ada
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -74,6 +62,21 @@ html_content = """<!DOCTYPE html>
         button:hover { background: #b45309; }
         footer { text-align: center; font-size: 0.75rem; color: var(--muted); margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 0.8rem; }
     </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Syams Maulana - Culinary & Cultural Storytelling",
+      "url": "https://syams-alhaqq.blogspot.com",
+      "author": {
+        "@type": "Person",
+        "name": "Syams Maulana",
+        "alternateName": "ICAM"
+      }
+    }
+    </script>
+    
 </head>
 <body>
     <div class="wrap">
@@ -117,13 +120,6 @@ html_content = """<!DOCTYPE html>
         }
     </script>
 </body>
+    <!-- Watermark: ICAM / Syams Maulana — Kolaborasi Pemikiran & Penyempurnaan Bersama (Al-Haqq Protocol) -->
+
 </html>
-"""
-
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-print(f"[INFO] Al-Haqq TCG AI Server starting on port {PORT}...")
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
-    print(f"Buka browser Anda dan akses: http://localhost:{PORT}")
-    httpd.serve_forever()

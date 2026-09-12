@@ -30,3 +30,20 @@ def generate_barcode():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
+
+@app.route('/api/set-mode', methods=['POST'])
+def set_mode():
+    data = request.get_json()
+    mode = data.get('mode', 'competitive')
+    # Update active AI scoring weights based on mode selection
+    return jsonify({"status": "success", "active_mode": mode})
+
+from bounties import load_bounties, save_bounty
+
+@app.route('/api/bounties', methods=['GET', 'POST'])
+def handle_bounties():
+    if request.method == 'POST':
+        data = request.get_json()
+        save_bounty(data.get('player'), data.get('title'), data.get('description'))
+        return jsonify({"status": "success", "message": "Bounty logged!"})
+    return jsonify(load_bounties())

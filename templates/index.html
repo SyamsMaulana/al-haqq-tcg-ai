@@ -39,3 +39,59 @@
     </script>
 </body>
 </html>
+<div class="mode-toggle-container">
+  <button onclick="setGameMode('competitive')">Competitive Mode</button>
+  <button onclick="setGameMode('enjoyer')">Enjoyer / Cinematic Mode</button>
+</div>
+<script>
+function setGameMode(mode) {
+  fetch('/api/set-mode', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ mode: mode })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Mode updated:', data);
+    alert('Active Game Mode: ' + mode.toUpperCase());
+  })
+  .catch(error => console.error('Error:', error));
+}
+</script>
+
+<div class="bounty-section" style="margin-top: 20px; padding: 15px; border: 1px solid #ccc;">
+  <h3>Table Bounties & Cinematic Highlights</h3>
+  <div id="bounty-list"></div>
+  <div style="margin-top: 10px;">
+    <input type="text" id="bountyPlayer" placeholder="Player Name" style="margin-right: 5px; padding: 5px;">
+    <input type="text" id="bountyTitle" placeholder="Achievement Title" style="margin-right: 5px; padding: 5px;">
+    <button onclick="submitBounty()" style="padding: 5px 10px;">Log Bounty</button>
+  </div>
+</div>
+
+<script>
+function loadBounties() {
+  fetch('/api/bounties')
+    .then(res => res.json())
+    .then(data => {
+      const list = document.getElementById('bounty-list');
+      list.innerHTML = data.map(b => `<p>🏆 <strong>${b.player}</strong>: ${b.title}</p>`).join('');
+    });
+}
+function submitBounty() {
+  fetch('/api/bounties', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      player: document.getElementById('bountyPlayer').value,
+      title: document.getElementById('bountyTitle').value,
+      description: "Cinematic moment unlocked at the table!"
+    })
+  }).then(() => {
+    document.getElementById('bountyPlayer').value = '';
+    document.getElementById('bountyTitle').value = '';
+    loadBounties();
+  });
+}
+loadBounties();
+</script>

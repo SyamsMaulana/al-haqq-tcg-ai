@@ -1,0 +1,28 @@
+{
+  "module": "tcg-ai-enjoyer-variants",
+  "target_environment": "Casual MTG Commander Pods",
+  "objective": "Prioritize social bonding, creative storytelling, and low-friction immersion over elimination metrics",
+  "variants": [
+    {
+      "id": "narrative_achievement_bounties",
+      "evaluation_matrix": "synergy_and_highlight_generation",
+      "weight_adjustment": {
+        "win_probability": 0.1,
+        "cinematic_impact": 0.9
+      }
+    },
+    {
+      "id": "cooperative_boss_raid",
+      "mode": "archenemy_lite",
+      "threat_priority": "deterministic_thematic"
+    },
+    {
+      "id": "full_transparency_open_pod",
+      "feature": "cooperative_hints_and_educational_loops"
+    },
+    {
+      "id": "generous_take_back_protocols",
+      "feature": "mana_smoothing_and_tactical_undo"
+    }
+  ]
+}

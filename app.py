@@ -47,3 +47,11 @@ def handle_bounties():
         save_bounty(data.get('player'), data.get('title'), data.get('description'))
         return jsonify({"status": "success", "message": "Bounty logged!"})
     return jsonify(load_bounties())
+
+from boss_raid import calculate_threats
+
+@app.route('/api/boss-raid', methods=['POST'])
+def boss_raid_calc():
+    data = request.get_json()
+    threats = calculate_threats(data.get('players', []))
+    return jsonify(threats)

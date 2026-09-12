@@ -49,3 +49,6 @@ python main.py
 git add README.md
 git commit -m "docs: add comprehensive README for Al-Haqq Protocol"
 git push origin main
+
+## Acknowledgments & Foundational Architecture
+This project builds upon the core TCG-AI architecture established by the original shifu founder. All casual enjoyer extensions, bounty modules, and cooperative modes are built in collaborative alignment to prioritize genuine community connection over manufactured hype.

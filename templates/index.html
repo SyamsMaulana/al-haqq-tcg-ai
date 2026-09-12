@@ -95,3 +95,29 @@ function submitBounty() {
 }
 loadBounties();
 </script>
+
+<div class="boss-section" style="margin-top: 20px; padding: 15px; border: 1px solid #ccc;">
+  <h3>Archenemy Threat Assessment</h3>
+  <button onclick="calculateThreats()" style="padding: 5px 10px;">Calculate Board Threats</button>
+  <div id="threat-list" style="margin-top: 10px;"></div>
+</div>
+
+<script>
+function calculateThreats() {
+  const samplePlayers = [
+    { name: "GOD•MauL", life: 30, permanents_count: 5, hand_size: 4 },
+    { name: "Player 2", life: 25, permanents_count: 8, hand_size: 2 },
+    { name: "Player 3", life: 35, permanents_count: 3, hand_size: 6 }
+  ];
+  fetch('/api/boss-raid', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ players: samplePlayers })
+  })
+  .then(res => res.json())
+  .then(data => {
+    const list = document.getElementById('threat-list');
+    list.innerHTML = data.map(t => `<p>⚠️ <strong>${t.player}</strong>: Threat Score ${t.threat_score}</p>`).join('');
+  });
+}
+</script>

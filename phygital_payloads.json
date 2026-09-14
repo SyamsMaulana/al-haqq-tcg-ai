@@ -1,107 +1,142 @@
 {
     "AH-001": {
-        "id": "AH-001",
+        "card_id": "AH-001",
         "name": "Titik Temu Karsa",
-        "category": "Event Global",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-001-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-001"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-B9C2F1D0FD1B3A6A",
+        "timestamp": "2026-09-14"
     },
     "AH-002": {
-        "id": "AH-002",
+        "card_id": "AH-002",
         "name": "Prinsip Mizan Mutlak",
-        "category": "Sustaining Protocol",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-002-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-002"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-DB4FE33C692EF7FD",
+        "timestamp": "2026-09-14"
     },
     "AH-003": {
-        "id": "AH-003",
+        "card_id": "AH-003",
         "name": "Saringan Al-Haqq",
-        "category": "Tactical Counter",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-003-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-003"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-C0B9462791CD6412",
+        "timestamp": "2026-09-14"
     },
     "AH-004": {
-        "id": "AH-004",
+        "card_id": "AH-004",
         "name": "Ekspedisi Dapur Inspirasi",
-        "category": "Resource Catalyst",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-004-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-004"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-6E48BFAE915CF9AC",
+        "timestamp": "2026-09-14"
     },
     "AH-005": {
-        "id": "AH-005",
+        "card_id": "AH-005",
         "name": "Piramida Terbalik",
-        "category": "Structural Anchor",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-005-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-005"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-081C4A278B8B72E1",
+        "timestamp": "2026-09-14"
     },
     "AH-006": {
-        "id": "AH-006",
+        "card_id": "AH-006",
         "name": "Jaring Arus Kolektif",
-        "category": "Event Global",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-006-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-006"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-07EA301AE3636E43",
+        "timestamp": "2026-09-14"
     },
     "AH-007": {
-        "id": "AH-007",
+        "card_id": "AH-007",
         "name": "Perisai Kejujuran",
-        "category": "Tactical Defense",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-007-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-007"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-24067BAD2C2A0C4C",
+        "timestamp": "2026-09-14"
     },
     "AH-008": {
-        "id": "AH-008",
+        "card_id": "AH-008",
         "name": "Katalisator Karsa Mandiri",
-        "category": "Resource Catalyst",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-008-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-008"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-2777A361551F23B9",
+        "timestamp": "2026-09-14"
     },
     "AH-009": {
-        "id": "AH-009",
+        "card_id": "AH-009",
         "name": "Kalibrasi Mizan",
-        "category": "Sustaining Protocol",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-009-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-009"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-D197AF50E8D80879",
+        "timestamp": "2026-09-14"
     },
     "AH-010": {
-        "id": "AH-010",
+        "card_id": "AH-010",
         "name": "Sertifikasi Digital Al-Haqq",
-        "category": "Phygital Protocol",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-010-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-010"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-66D49064DAB91396",
+        "timestamp": "2026-09-14"
     },
     "AH-011": {
-        "id": "AH-011",
+        "card_id": "AH-011",
         "name": "Gelombang Solidaritas",
-        "category": "Event Global",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-011-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-011"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-A4B2CBF660087826",
+        "timestamp": "2026-09-14"
     },
     "AH-012": {
-        "id": "AH-012",
+        "card_id": "AH-012",
         "name": "Strategi Akar Rumput",
-        "category": "Tactical Counter",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-012-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-012"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-38E2C5BA0A8B04BA",
+        "timestamp": "2026-09-14"
     },
     "AH-013": {
-        "id": "AH-013",
+        "card_id": "AH-013",
         "name": "Ekspansi Simpul Nusantara",
-        "category": "Resource Catalyst",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-013-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-013"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-BB85F410C28D4416",
+        "timestamp": "2026-09-14"
     },
     "AH-014": {
-        "id": "AH-014",
+        "card_id": "AH-014",
         "name": "Audit Kejujuran Mutlak",
-        "category": "Sustaining Protocol",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-014-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-014"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-18A2D279F5534DA4",
+        "timestamp": "2026-09-14"
     },
     "AH-015": {
-        "id": "AH-015",
+        "card_id": "AH-015",
         "name": "Mahkota Karsa Kolektif",
-        "category": "Structural Anchor",
-        "verification_hash": "ALHAQQ-VERIFIED-AH-015-2026",
-        "digital_sync_url": "http://localhost:8080/card/ah-015"
+        "type": "Starter Deck",
+        "verification_hash": "ALHAQQ-VERIFIED-1CC6B32D6EC16DF6",
+        "timestamp": "2026-09-14"
+    },
+    "AG-001": {
+        "card_id": "AG-001",
+        "name": "Arsitek Titik Temu",
+        "type": "Karsa Agent",
+        "verification_hash": "ALHAQQ-VERIFIED-19E653808E5BAED4",
+        "timestamp": "2026-09-14"
+    },
+    "AG-002": {
+        "card_id": "AG-002",
+        "name": "Penjaga Mizan Mutlak",
+        "type": "Karsa Agent",
+        "verification_hash": "ALHAQQ-VERIFIED-D7C962B72886B66B",
+        "timestamp": "2026-09-14"
+    },
+    "AG-003": {
+        "card_id": "AG-003",
+        "name": "Koki Dapur Inspirasi",
+        "type": "Karsa Agent",
+        "verification_hash": "ALHAQQ-VERIFIED-F0DDCCC89665DAF6",
+        "timestamp": "2026-09-14"
+    },
+    "AG-004": {
+        "card_id": "AG-004",
+        "name": "Pilar Piramida Terbalik",
+        "type": "Karsa Agent",
+        "verification_hash": "ALHAQQ-VERIFIED-D1B34B2BCCBA0046",
+        "timestamp": "2026-09-14"
+    },
+    "AG-005": {
+        "card_id": "AG-005",
+        "name": "Navigator Simpul Maritim",
+        "type": "Karsa Agent",
+        "verification_hash": "ALHAQQ-VERIFIED-66205EFA1BFF4F53",
+        "timestamp": "2026-09-14"
     }
 }

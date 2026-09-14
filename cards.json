@@ -1,0 +1,35 @@
+
+
+
+
+
+
+
+
+
+# Tambahkan fungsi pemuatan cards.json di app.py
+import os
+
+if os.path.exists("cards.json"):
+  with open("cards.json", "r") as f:
+    cards_data = json.load(f)
+
+  st.subheader("🎴 Initial Expansion Card Codex")
+  for card in cards_data:
+    with st.expander(
+        f"{card['card_id']} — {card['card_name']} [{card['card_type']}]"
+    ):
+      col1, col2 = st.columns(2)
+      with col1:
+        st.write(f"Affinity:")
+        st.write(f"Resource Cost:")
+        st.write(f"Attack:['attack_power']}")
+        st.write(
+            f"Defense:['defense_integrity']}"
+        )
+      with col2:
+        st.write(f"Rarity:['rarity_tier']}")
+        st.write(f"**Hash:** `{card['digital_integrity']['hash_signature']}`")
+      st.markdown(f"> *{card['lore_snippet']}*")
+
+

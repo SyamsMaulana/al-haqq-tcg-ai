@@ -5,18 +5,21 @@
 
 
 
-# al_haqq_dashboard.py — Diperbarui dengan Live Interactive Match Simulator
+
+
+# al_haqq_dashboard.py — Diperbarui dengan Integrasi Verifikasi Phygital
 import streamlit as st
 import deck_data
 import agent_data
 from rule_engine import MatchRuleEngine
+from phygital_verifier import PhygitalVerifier
 
 st.set_page_config(page_title="Al-Haqq TCG Command Hub", layout="centered")
 
 st.title("Al-Haqq TCG Command Hub")
 st.markdown("**Ekosistem Phygital, Mizan Fairness, & Karsa Agents**")
 
-tab1, tab2, tab3, tab4 = st.tabs(["Starter Deck", "Karsa Agents", "Rule Engine", "Live Match Simulator"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Starter Deck", "Karsa Agents", "Rule Engine", "Live Match", "Verifikasi Phygital"])
 
 with tab1:
     st.subheader("Database Kartu Starter Al-Haqq")
@@ -64,11 +67,22 @@ with tab4:
             st.write(f"LP: {data['lp']} / 12 | Mana: {data['mana']}")
         with col2:
             if st.button(f"Kurangi 1 LP", key=f"dmg_{node}"):
-                if data['lp'] > 0:
-                    data['lp'] -= 1
+                if data['lp'] > 0: data['lp'] -= 1
                 st.rerun()
             if st.button(f"Pulihkan 1 LP", key=f"heal_{node}"):
-                if data['lp'] < 12:
-                    data['lp'] += 1
+                if data['lp'] < 12: data['lp'] += 1
                 st.rerun()
         st.divider()
+
+with tab5:
+    st.subheader("Verifikasi Token Phygital NFC/QR")
+    verifier = PhygitalVerifier()
+    input_hash = st.text_input("Masukkan Hash Verifikasi Kartu:", value="ALHAQQ-VERIFIED-AH-001-2026")
+    if st.button("Verifikasi Keaslian"):
+        res = verifier.verify_token(input_hash)
+        if res["status"] == "AUTENTIK":
+            st.success(f"Status: {res['status']}")
+            st.json(res)
+        else:
+            st.error(f"Status: {res['status']}")
+            st.json(res)

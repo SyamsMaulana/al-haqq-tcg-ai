@@ -1,0 +1,24 @@
+[
+    {
+        "index": 0,
+        "timestamp": "2026-09-14 15:03:26.493480",
+        "data": {
+            "message": "Genesis Block \u2014 Al-Haqq Protocol TCG Mizan Integrity",
+            "initiator": "ICAM / Syams Maulana"
+        },
+        "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "75936a471aab3b2c041f07eb377f23e78b05e8ab4cf7a6d8b2a4117d53d37f2e"
+    },
+    {
+        "index": 1,
+        "timestamp": "2026-09-14 15:03:26.493663",
+        "data": {
+            "type": "MATCH_RESULT",
+            "winner": "Node A",
+            "loser": "Node B",
+            "mizan_score": "12-8"
+        },
+        "previous_hash": "75936a471aab3b2c041f07eb377f23e78b05e8ab4cf7a6d8b2a4117d53d37f2e",
+        "hash": "19ccd9dfff9e268726f218115c915fa22a2e5a9d8151ced556e900df0ed3fd2c"
+    }
+]

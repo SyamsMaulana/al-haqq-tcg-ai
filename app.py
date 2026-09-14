@@ -55,3 +55,16 @@ def boss_raid_calc():
     data = request.get_json()
     threats = calculate_threats(data.get('players', []))
     return jsonify(threats)
+
+from config_manager import get_mode, set_mode
+
+@app.route('/api/set-mode', methods=['POST'])
+def update_mode():
+    data = request.get_json()
+    mode = data.get('mode', 'enjoyer')
+    set_mode(mode)
+    return jsonify({"status": "success", "active_mode": mode})
+
+@app.route('/api/get-mode', methods=['GET'])
+def fetch_mode():
+    return jsonify({"active_mode": get_mode()})

@@ -1,0 +1,79 @@
+nohup: ignoring input
+2026-09-14 15:33:26.922 Uvicorn server started on :::8501
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.0.151:8501
+  External URL: http://111.94.148.102:8501
+
+2026-09-14 15:33:31.257 Uncaught app execution
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 136, in exec_func_with_error_handling
+    result = func()
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 827, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/downloads/al-haqq-tcg-ai/al_haqq_dashboard.py", line 134, in <module>
+    input_hash = st.text_input("Masukkan Token/Hash Verifikasi:", "ALHAQQ-VERIFIED-")
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/runtime/metrics_util.py", line 725, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/elements/widgets/text_widgets.py", line 576, in text_input
+    return self._text_input(
+           ~~~~~~~~~~~~~~~~^
+        label=label,
+        ^^^^^^^^^^^^
+    ...<17 lines>...
+        ctx=ctx,
+        ^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/elements/widgets/text_widgets.py", line 668, in _text_input
+    element_id = compute_and_register_element_id(
+        "text_input",
+    ...<16 lines>...
+        **validate_identity_kwarg,
+    )
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/elements/lib/utils.py", line 273, in compute_and_register_element_id
+    _register_element_id(ctx, element_type, element_id)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/elements/lib/utils.py", line 158, in _register_element_id
+    raise StreamlitDuplicateElementId(element_type)
+streamlit.errors.StreamlitDuplicateElementId: There are multiple `text_input` elements with the same auto-generated ID. When this element is created, it is assigned an internal ID based on the element type and provided parameters. Multiple elements with the same type and parameters will cause this error.
+
+To fix this error, please pass a unique `key` argument to the `text_input` element.
+2026-09-14 15:33:34.697 Uncaught app execution
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 136, in exec_func_with_error_handling
+    result = func()
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 827, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/downloads/al-haqq-tcg-ai/al_haqq_dashboard.py", line 134, in <module>
+    input_hash = st.text_input("Masukkan Token/Hash Verifikasi:", "ALHAQQ-VERIFIED-")
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/runtime/metrics_util.py", line 725, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/elements/widgets/text_widgets.py", line 576, in text_input
+    return self._text_input(
+           ~~~~~~~~~~~~~~~~^
+        label=label,
+        ^^^^^^^^^^^^
+    ...<17 lines>...
+        ctx=ctx,
+        ^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/elements/widgets/text_widgets.py", line 668, in _text_input
+    element_id = compute_and_register_element_id(
+        "text_input",
+    ...<16 lines>...
+        **validate_identity_kwarg,
+    )
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/elements/lib/utils.py", line 273, in compute_and_register_element_id
+    _register_element_id(ctx, element_type, element_id)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.14/site-packages/streamlit/elements/lib/utils.py", line 158, in _register_element_id
+    raise StreamlitDuplicateElementId(element_type)
+streamlit.errors.StreamlitDuplicateElementId: There are multiple `text_input` elements with the same auto-generated ID. When this element is created, it is assigned an internal ID based on the element type and provided parameters. Multiple elements with the same type and parameters will cause this error.
+
+To fix this error, please pass a unique `key` argument to the `text_input` element.

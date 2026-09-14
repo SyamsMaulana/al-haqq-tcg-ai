@@ -121,3 +121,13 @@ function calculateThreats() {
   });
 }
 </script>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  fetch('/api/get-mode')
+    .then(res => res.json())
+    .then(data => {
+      console.log("Loaded active game mode:", data.active_mode);
+    });
+});
+</script>

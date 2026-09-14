@@ -5,9 +5,11 @@
 
 
 
-# phygital_verifier.py — Modul Verifikasi Real-Time Phygital NFC/QR Card
+
+# phygital_verifier.py — Modul Verifikasi & Aset Fisik Al-Haqq Protocol TCG
 import json
 import os
+import hashlib
 
 class PhygitalVerifier:
     def __init__(self, payload_path="phygital_payloads.json"):
@@ -20,7 +22,11 @@ class PhygitalVerifier:
                 return json.load(f)
         return {}
 
-    def verify_token(self, verification_hash):
+    def generate_card_hash(self, card_id: str, owner: str) -> str:
+        payload = f"{card_id}:{owner}:AL_HAQQ_PROTOCOL_2026"
+        return hashlib.sha256(payload.encode()).hexdigest()
+
+    def verify_token(self, verification_hash: str):
         for card_id, data in self.payloads.items():
             if data.get("verification_hash") == verification_hash:
                 return {
@@ -36,8 +42,21 @@ class PhygitalVerifier:
             "framework": "Al-Haqq-Protocol v1.0"
         }
 
+    def render_printable_asset(self, card_name: str, card_id: str, owner: str):
+        h = self.generate_card_hash(card_id, owner)
+        html_template = f"""
+        <div style="width: 63mm; height: 88mm; border: 2px solid #000; padding: 4mm; box-sizing: border-box; font-family: sans-serif; position: relative; background: white;">
+            <h3>{card_name}</h3>
+            <p><b>ID:</b> {card_id}</p>
+            <p><b>Owner:</b> {owner}</p>
+            <div style="position: absolute; bottom: 4mm; font-size: 8px; word-break: break-all;">
+                <b>SHA-256 Hash:</b><br>{h}
+            </div>
+        </div>
+        """
+        return html_template
+
 if __name__ == "__main__":
     verifier = PhygitalVerifier()
-    test_hash = "ALHAQQ-VERIFIED-AH-001-2026"
-    result = verifier.verify_token(test_hash)
-    print(f"Hasil Verifikasi Phygital: {result}")
+    print("Modul Phygital Verifier & Asset Exporter siap diintegrasikan.")
+

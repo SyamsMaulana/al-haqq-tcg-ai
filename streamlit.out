@@ -1,0 +1,10 @@
+nohup: ignoring input
+2026-09-14 14:03:44.449 Uvicorn server started on :::8504
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8504
+  Network URL: http://192.168.0.151:8504
+  External URL: http://111.94.148.102:8504
+  Stopping...
+

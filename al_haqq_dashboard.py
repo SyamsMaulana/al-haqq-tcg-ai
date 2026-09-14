@@ -3,86 +3,71 @@
 
 
 
-
-
-
-
-# al_haqq_dashboard.py — Diperbarui dengan Integrasi Verifikasi Phygital
+# al_haqq_dashboard.py — Streamlit Command Hub Dashboard (Diperbarui v2.2)
 import streamlit as st
-import deck_data
-import agent_data
-from rule_engine import MatchRuleEngine
+import json
+import os
 from phygital_verifier import PhygitalVerifier
+from deck_builder import DeckBuilder
 
-st.set_page_config(page_title="Al-Haqq TCG Command Hub", layout="centered")
+st.set_page_config(
+    page_title="Al-Haqq Protocol Command Hub",
+    page_icon="⚖️",
+    layout="wide"
+)
 
-st.title("Al-Haqq TCG Command Hub")
-st.markdown("**Ekosistem Phygital, Mizan Fairness, & Karsa Agents**")
+st.title("⚖️ Al-Haqq Protocol TCG — Command Hub")
+st.markdown("*Integritas Al-Haqq Framework & Karsa Kreatif Kolektif*")
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Starter Deck", "Karsa Agents", "Rule Engine", "Live Match", "Verifikasi Phygital"])
+tab1, tab2, tab3, tab4 = st.tabs([
+    "🛡️ Phygital Verifier", 
+    "🃏 Mizan Deck Builder", 
+    "🏆 Tournament Standings", 
+    "📖 Rulebook & Docs"
+])
 
 with tab1:
-    st.subheader("Database Kartu Starter Al-Haqq")
-    for card in deck_data.starter_deck_database:
-        with st.expander(f"{card['card_id']} — {card['name']} ({card['category']})"):
-            st.write(f"**Mana:** K {card['casual_cost']} | T {card['turbo_cost']}")
-            st.write(f"Efek:")
-            st.caption(f"*{card['narrative']}*")
+    st.subheader("Verifikasi Kriptografis Aset Phygital (QR/NFC)")
+    verifier = PhygitalVerifier()
+    input_hash = st.text_input("Masukkan Token/Hash Verifikasi:", "ALHAQQ-VERIFIED-")
+    if st.button("Verifikasi Token"):
+        result = verifier.verify_token(input_hash)
+        if result["status"] == "AUTENTIK":
+            st.success(f"Status: {result['status']}")
+            st.json(result)
+        else:
+            st.error(f"Status: {result['status']}")
 
 with tab2:
-    st.subheader("Database Karsa Agents")
-    for agent in agent_data.karsa_agents_database:
-        with st.expander(f"{agent['agent_id']} — {agent['name']} ({agent['category']})"):
-            st.write(f"**Mana:** K {agent['casual_cost']} | T {agent['turbo_cost']}")
-            st.write(f"**Atribut:** Influence: {agent['influence_power']} | Durability: {agent['durability']}")
-            st.write(f"**Ability:** {agent['ability']}")
-            st.caption(f"*{agent['narrative']}*")
+    st.subheader("Pembangunan & Validasi Dek Berbasis Mizan")
+    builder = DeckBuilder()
+    selected_card = st.text_input("Masukkan Card ID (contoh: AH-001, AG-001):", "AH-001")
+    if st.button("Tambah ke Dek"):
+        success, msg = builder.add_card_to_deck(selected_card)
+        if success:
+            st.success(msg)
+        else:
+            st.warning(msg)
+    
+    report = builder.validate_mizan_deck()
+    st.markdown(f"**Total Kartu:** {report['total_cards']} / 15")
+    st.markdown(f"**Status Mizan:** {report['mizan_status']}")
+    st.write("Isi Dek Saat Ini:", report['deck_contents'])
 
 with tab3:
-    st.subheader("Evaluasi Mizan & Rule Engine")
-    p_count = st.slider("Jumlah Pemain (Nodes)", 2, 8, 4, key="rule_p_count")
-    if st.button("Uji Validasi Mizan"):
-        class MockP:
-            def __init__(self, pid): self.player_id = pid; self.lp = 12; self.is_active = True
-        engine = MatchRuleEngine([MockP(i+1) for i in range(p_count)])
-        st.metric(label="Mizan Fairness Index", value="100.00%")
-        st.success(engine.check_win_condition(current_turn=1))
+    st.subheader("Papan Peringkat Turnamen G.O.D TCG")
+    if os.path.exists("tournament_standings.json"):
+        with open("tournament_standings.json", "r", encoding="utf-8") as f:
+            standings_data = json.load(f)
+        st.json(standings_data)
+    else:
+        st.info("Belum ada data turnamen. Jalankan tournament_manager.py terlebih dahulu.")
 
 with tab4:
-    st.subheader("Simulasi Pertandingan Langsung (Playtest Node)")
-    mode = st.selectbox("Mode Permainan", ["Turbo Mode (Fixed 10 Mana)", "Casual Mode (Progressive 1-12 Mana)"])
-    sim_players = st.number_input("Jumlah Partisipan", min_value=2, max_value=8, value=2)
-    
-    if "match_state" not in st.session_state:
-        st.session_state.match_state = {f"Node {i+1}": {"lp": 12, "mana": 10 if "Turbo" in mode else 1} for i in range(sim_players)}
-
-    if st.button("Reset Pertandingan"):
-        st.session_state.match_state = {f"Node {i+1}": {"lp": 12, "mana": 10 if "Turbo" in mode else 1} for i in range(sim_players)}
-        st.rerun()
-
-    for node, data in st.session_state.match_state.items():
-        col1, col2 = st.columns([2, 2])
-        with col1:
-            st.markdown(f"**{node}**")
-            st.write(f"LP: {data['lp']} / 12 | Mana: {data['mana']}")
-        with col2:
-            if st.button(f"Kurangi 1 LP", key=f"dmg_{node}"):
-                if data['lp'] > 0: data['lp'] -= 1
-                st.rerun()
-            if st.button(f"Pulihkan 1 LP", key=f"heal_{node}"):
-                if data['lp'] < 12: data['lp'] += 1
-                st.rerun()
-        st.divider()
-
-with tab5:
-    st.subheader("Verifikasi Token Phygital NFC/QR")
-    verifier = PhygitalVerifier()
-    input_hash = st.text_input("Masukkan Hash Verifikasi Kartu:", value="ALHAQQ-VERIFIED-AH-001-2026")
-    if st.button("Verifikasi Keaslian"):
-        res = verifier.verify_token(input_hash)
-        if res["status"] == "AUTENTIK":
-            st.success(f"Status: {res['status']}")
-            st.json(res)
-        else:
-            st.error(f"Status: {res['status']}")
-            st.json(res)
+    st.subheader("Buku Panduan Resmi (Rulebook)")
+    if os.path.exists("AL_HAQQ_RULEBOOK.md"):
+        with open("AL_HAQQ_RULEBOOK.md", "r", encoding="utf-8") as f:
+            rulebook_content = f.read()
+        st.markdown(rulebook_content)
+    else:
+        st.info("Rulebook belum di-generate.")

@@ -1,70 +1,62 @@
-from flask import Flask, render_template, request, jsonify
-import qrcode
-import os
-from datetime import datetime
 
-app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
 
-@app.route('/api/command', methods=['POST'])
-def handle_command():
-    data = request.get_json()
-    cmd = data.get('command', '')
-    reply = f"Perintah '{cmd}' diproses di bawah Protokol Al-Haqq (ICAM / Syams Maulana)."
-    return jsonify({'reply': reply})
 
-@app.route('/api/barcode', methods=['POST'])
-def generate_barcode():
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"living_barcode_{timestamp}.png"
-    filepath = os.path.join(os.getcwd(), filename)
-    
-    payload = f"Al-Haqq Protocol | ICAM (Syams Maulana) | {timestamp}"
-    img = qrcode.make(payload)
-    img.save(filepath)
-    
-    return jsonify({'status': 'success', 'file': filename, 'message': 'Living Barcode berhasil dicetak.'})
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
 
-@app.route('/api/set-mode', methods=['POST'])
-def set_mode():
-    data = request.get_json()
-    mode = data.get('mode', 'competitive')
-    # Update active AI scoring weights based on mode selection
-    return jsonify({"status": "success", "active_mode": mode})
 
-from bounties import load_bounties, save_bounty
+# app.py - Interactive Web Viewer for Nusantara Fantasy TCG Schema
+import json
+import streamlit as st
 
-@app.route('/api/bounties', methods=['GET', 'POST'])
-def handle_bounties():
-    if request.method == 'POST':
-        data = request.get_json()
-        save_bounty(data.get('player'), data.get('title'), data.get('description'))
-        return jsonify({"status": "success", "message": "Bounty logged!"})
-    return jsonify(load_bounties())
+st.set_page_config(
+    page_title="Nusantara Fantasy TCG (NFT) Schema Viewer",
+    page_icon="🎴",
+    layout="wide",
+)
 
-from boss_raid import calculate_threats
+st.markdown("### 🏛️ Nusantara Fantasy TCG (NFT) Protocol Explorer")
+st.caption(
+    "Digital Watermark & Integrity Framework: ICAM-AlHaqq-Verified | Collaborative Creator Platform"
+)
 
-@app.route('/api/boss-raid', methods=['POST'])
-def boss_raid_calc():
-    data = request.get_json()
-    threats = calculate_threats(data.get('players', []))
-    return jsonify(threats)
+try:
+  with open("nusantara_fantasy_tcg.json", "r") as f:
+    data = json.load(f)
+except FileNotFoundError:
+  st.error(
+      "File `nusantara_fantasy_tcg.json` tidak ditemukan. Pastikan file sudah disimpan di direktori yang sama."
+  )
+  st.stop()
 
-from config_manager import get_mode, set_mode
+tab1, tab2, tab3, tab4 = st.tabs(
+    ["📋 Project Metadata", "⚙️ Game Mechanics", "🎴 Card Schema", "📦 Expansions"]
+)
 
-@app.route('/api/set-mode', methods=['POST'])
-def update_mode():
-    data = request.get_json()
-    mode = data.get('mode', 'enjoyer')
-    set_mode(mode)
-    return jsonify({"status": "success", "active_mode": mode})
+with tab1:
+  st.subheader("Project Metadata")
+  metadata = data.get("project_metadata", {})
+  for k, v in metadata.items():
+    st.write(f"**{k.replace('_', ' ').title()}:** {v}")
 
-@app.route('/api/get-mode', methods=['GET'])
-def fetch_mode():
-    return jsonify({"active_mode": get_mode()})
+with tab2:
+  st.subheader("Game Mechanics")
+  mechanics = data.get("game_mechanics", {})
+  st.write(f"**Format:** {mechanics.get('format')}")
+  st.write(f"**Resource System:** {mechanics.get('resource_system')}")
+  st.write("**Win Conditions:**")
+  for wc in mechanics.get("win_conditions", []):
+    st.markdown(f"- {wc}")
+
+with tab3:
+  st.subheader("Card Schema Blueprint")
+  st.json(data.get("card_schema", {}))
+
+with tab4:
+  st.subheader("Initial Expansion Roster")
+  for exp in data.get("initial_expansion_roster", []):
+    with st.expander(f"{exp['set_code']} - {exp['set_name']}"):
+      st.write(f"**Lore:** {exp['primary_lore']}")
+      st.write("**Featured Archetypes:**")
+      for arch in exp.get("featured_archetypes", []):
+        st.markdown(f"- {arch}")

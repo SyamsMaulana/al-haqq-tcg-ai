@@ -1,0 +1,10 @@
+
+
+
+
+
+
+
+python3 -c "import json; data = json.load(open('nusantara_fantasy_tcg.json')); print('Loaded:', data['project_metadata']['title'])"
+
+

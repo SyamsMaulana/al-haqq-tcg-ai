@@ -3,7 +3,13 @@
 
 
 
-# al_haqq_dashboard.py — Streamlit Command Hub Dashboard (Diperbarui v2.2)
+
+
+
+
+
+
+# al_haqq_dashboard.py — Streamlit Command Hub Dashboard (Versi Anti-Pyarrow)
 import streamlit as st
 import json
 import os
@@ -52,7 +58,8 @@ with tab2:
     report = builder.validate_mizan_deck()
     st.markdown(f"**Total Kartu:** {report['total_cards']} / 15")
     st.markdown(f"**Status Mizan:** {report['mizan_status']}")
-    st.write("Isi Dek Saat Ini:", report['deck_contents'])
+    st.write("Isi Dek Saat Ini:")
+    st.json(report['deck_contents'])
 
 with tab3:
     st.subheader("Papan Peringkat Turnamen G.O.D TCG")

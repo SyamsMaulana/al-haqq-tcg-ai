@@ -1,0 +1,19 @@
+{
+    "tournament": "G.O.D Season 1: Mizan Cup",
+    "standings": {
+        "NODE-01": {
+            "player_name": "GOD\u2022MauL",
+            "wins": 1,
+            "losses": 0,
+            "mizan_score": 100.0,
+            "status": "Active"
+        },
+        "NODE-02": {
+            "player_name": "KarsaNode_X",
+            "wins": 0,
+            "losses": 1,
+            "mizan_score": 97.5,
+            "status": "Active"
+        }
+    }
+}

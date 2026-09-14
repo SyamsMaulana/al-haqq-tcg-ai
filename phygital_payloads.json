@@ -1,0 +1,107 @@
+{
+    "AH-001": {
+        "id": "AH-001",
+        "name": "Titik Temu Karsa",
+        "category": "Event Global",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-001-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-001"
+    },
+    "AH-002": {
+        "id": "AH-002",
+        "name": "Prinsip Mizan Mutlak",
+        "category": "Sustaining Protocol",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-002-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-002"
+    },
+    "AH-003": {
+        "id": "AH-003",
+        "name": "Saringan Al-Haqq",
+        "category": "Tactical Counter",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-003-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-003"
+    },
+    "AH-004": {
+        "id": "AH-004",
+        "name": "Ekspedisi Dapur Inspirasi",
+        "category": "Resource Catalyst",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-004-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-004"
+    },
+    "AH-005": {
+        "id": "AH-005",
+        "name": "Piramida Terbalik",
+        "category": "Structural Anchor",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-005-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-005"
+    },
+    "AH-006": {
+        "id": "AH-006",
+        "name": "Jaring Arus Kolektif",
+        "category": "Event Global",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-006-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-006"
+    },
+    "AH-007": {
+        "id": "AH-007",
+        "name": "Perisai Kejujuran",
+        "category": "Tactical Defense",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-007-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-007"
+    },
+    "AH-008": {
+        "id": "AH-008",
+        "name": "Katalisator Karsa Mandiri",
+        "category": "Resource Catalyst",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-008-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-008"
+    },
+    "AH-009": {
+        "id": "AH-009",
+        "name": "Kalibrasi Mizan",
+        "category": "Sustaining Protocol",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-009-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-009"
+    },
+    "AH-010": {
+        "id": "AH-010",
+        "name": "Sertifikasi Digital Al-Haqq",
+        "category": "Phygital Protocol",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-010-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-010"
+    },
+    "AH-011": {
+        "id": "AH-011",
+        "name": "Gelombang Solidaritas",
+        "category": "Event Global",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-011-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-011"
+    },
+    "AH-012": {
+        "id": "AH-012",
+        "name": "Strategi Akar Rumput",
+        "category": "Tactical Counter",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-012-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-012"
+    },
+    "AH-013": {
+        "id": "AH-013",
+        "name": "Ekspansi Simpul Nusantara",
+        "category": "Resource Catalyst",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-013-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-013"
+    },
+    "AH-014": {
+        "id": "AH-014",
+        "name": "Audit Kejujuran Mutlak",
+        "category": "Sustaining Protocol",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-014-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-014"
+    },
+    "AH-015": {
+        "id": "AH-015",
+        "name": "Mahkota Karsa Kolektif",
+        "category": "Structural Anchor",
+        "verification_hash": "ALHAQQ-VERIFIED-AH-015-2026",
+        "digital_sync_url": "http://localhost:8080/card/ah-015"
+    }
+}

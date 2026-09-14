@@ -5,6 +5,69 @@
 
 
 
-python3 -c "import json; data = json.load(open('nusantara_fantasy_tcg.json')); print('Loaded:', data['project_metadata']['title'])"
 
-
+{
+  "project_metadata": {
+    "title": "Nusantara Fantasy TCG",
+    "acronym": "NFT",
+    "tagline": "Global-facing tactical trading card game rooted in the heritage, lore, and maritime history of the Indonesian archipelago.",
+    "creator": "Syams Maulana (ICAM)",
+    "protocol_integration": "Al-Haqq Digital Watermark & Inverted-Pyramid Integrity Framework",
+    "status": "Active Conceptual & Structural Development",
+    "target_market": "International and Domestic TCG Communities"
+  },
+  "game_mechanics": {
+    "format": "Competitive 1v1 Tactical Card Duel",
+    "resource_system": "Elemental Essence (Tanah, Air, Api, Angin, Ether)",
+    "win_conditions": [
+      "Securing Archetype Relics",
+      "Depleting Opponent Codex Deck",
+      "Tactical Supremacy on the Archipelago Board"
+    ]
+  },
+  "card_schema": {
+    "card_id": "NFT-SYS-001",
+    "card_name": "string",
+    "card_type": [
+      "Hero",
+      "Legend",
+      "Artifact",
+      "Strategy",
+      "Environment"
+    ],
+    "elemental_affinity": "string",
+    "resource_cost": 0,
+    "attributes": {
+      "attack_power": 0,
+      "defense_integrity": 0
+    },
+    "lore_snippet": "string",
+    "digital_integrity": {
+      "watermark_protocol": "ICAM-AlHaqq-Verified",
+      "rarity_tier": "Common | Rare | Mythic | Sovereign",
+      "hash_signature": "string"
+    }
+  },
+  "initial_expansion_roster": [
+    {
+      "set_code": "NFT-SET-01",
+      "set_name": "Dawn of Maritime Sovereigns",
+      "primary_lore": "Sriwijaya, Majapahit, and maritime trade routes of ancient Nusantara.",
+      "featured_archetypes": [
+        "Naval Tactician",
+        "Guardian of the Sacred Keris",
+        "Spice Route Trader"
+      ]
+    },
+    {
+      "set_code": "NFT-SET-02",
+      "set_name": "Mythos & Nusantara Folklore",
+      "primary_lore": "Spiritual guardians, legendary creatures, and cosmological legends.",
+      "featured_archetypes": [
+        "Coastal Mystic",
+        "Celestial Guardian",
+        "Ancient Artifact Seeker"
+      ]
+    }
+  ]
+}

@@ -6,30 +6,57 @@
 
 
 
-
-# Tambahkan fungsi pemuatan cards.json di app.py
-import os
-
-if os.path.exists("cards.json"):
-  with open("cards.json", "r") as f:
-    cards_data = json.load(f)
-
-  st.subheader("🎴 Initial Expansion Card Codex")
-  for card in cards_data:
-    with st.expander(
-        f"{card['card_id']} — {card['card_name']} [{card['card_type']}]"
-    ):
-      col1, col2 = st.columns(2)
-      with col1:
-        st.write(f"Affinity:")
-        st.write(f"Resource Cost:")
-        st.write(f"Attack:['attack_power']}")
-        st.write(
-            f"Defense:['defense_integrity']}"
-        )
-      with col2:
-        st.write(f"Rarity:['rarity_tier']}")
-        st.write(f"**Hash:** `{card['digital_integrity']['hash_signature']}`")
-      st.markdown(f"> *{card['lore_snippet']}*")
-
+[
+  {
+    "card_id": "NFT-HERO-001",
+    "card_name": "Laksamana Malahayati",
+    "card_type": "Hero",
+    "elemental_affinity": "Air",
+    "resource_cost": 4,
+    "attributes": {
+      "attack_power": 2800,
+      "defense_integrity": 2400
+    },
+    "lore_snippet": "Commander of the Inong Balee fleet, guarding the maritime sovereignty of Aceh and the Nusantara straits.",
+    "digital_integrity": {
+      "watermark_protocol": "ICAM-AlHaqq-Verified",
+      "rarity_tier": "Sovereign",
+      "hash_signature": "0x7F9B2C4E8A1D3"
+    }
+  },
+  {
+    "card_id": "NFT-ART-001",
+    "card_name": "Keris Mpu Gandring",
+    "card_type": "Artifact",
+    "elemental_affinity": "Api",
+    "resource_cost": 3,
+    "attributes": {
+      "attack_power": 1500,
+      "defense_integrity": 1000
+    },
+    "lore_snippet": "A legendary sacred blade forged with profound spiritual resonance and historic consequence.",
+    "digital_integrity": {
+      "watermark_protocol": "ICAM-AlHaqq-Verified",
+      "rarity_tier": "Mythic",
+      "hash_signature": "0x4A3E9F8C2B1D6"
+    }
+  },
+  {
+    "card_id": "NFT-ENV-001",
+    "card_name": "Spice Route Trade Winds",
+    "card_type": "Environment",
+    "elemental_affinity": "Angin",
+    "resource_cost": 2,
+    "attributes": {
+      "attack_power": 500,
+      "defense_integrity": 800
+    },
+    "lore_snippet": "Monsoon currents that accelerated merchant galleys across international maritime archipelagos.",
+    "digital_integrity": {
+      "watermark_protocol": "ICAM-AlHaqq-Verified",
+      "rarity_tier": "Common",
+      "hash_signature": "0x1D2C3B4A5F6E7"
+    }
+  }
+]
 

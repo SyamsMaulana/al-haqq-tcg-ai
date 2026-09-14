@@ -1,10 +1,2 @@
-
-
-
-
-
-
 streamlit
-pytest
-requests
-
+Pillow
